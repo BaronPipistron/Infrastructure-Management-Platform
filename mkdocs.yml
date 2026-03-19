@@ -1,0 +1,7 @@
+site_name: Infrastructure Platform
+site_url: https://BaronPipistron.github.io/YOUR_REPO/
+theme:
+  name: material
+
+nav:
+  - Home: index.md
