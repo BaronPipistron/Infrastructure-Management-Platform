@@ -5,3 +5,10 @@ theme:
 
 nav:
   - Home: index.md
+  - Architecture: 01-architecture/index.md
+  - Components:
+      - Overview: 02-components/index.md
+      - Inventory: 02-components/01-inventory/index.md
+      - Drift Detector: 02-components/02-drift-detector/index.md
+      - Reconciler: 02-components/03-reconciler/index.md
+      - Parser: 02-components/04-parser/index.md
