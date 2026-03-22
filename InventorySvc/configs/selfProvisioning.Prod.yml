@@ -1,0 +1,28 @@
+hosts:
+  - id: host-prod-001
+    fqdn: db01.prod.example.internal
+    labels:
+      managed_by: team-a
+      purpose: database
+      env: prod
+      role: primary
+      region: ru-msk-1
+      owner: platform
+  - id: host-prod-002
+    fqdn: compute01.prod.example.internal
+    labels:
+      managed_by: team-a
+      purpose: compute
+      env: prod
+      role: worker
+      region: ru-msk-2
+      owner: sre
+  - id: host-prod-003
+    fqdn: storage01.prod.example.internal
+    labels:
+      managed_by: team-a
+      purpose: storage
+      env: prod
+      role: ceph
+      region: ru-msk-2
+      owner: platform

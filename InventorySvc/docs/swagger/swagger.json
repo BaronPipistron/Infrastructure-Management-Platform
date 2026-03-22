@@ -1,0 +1,351 @@
+{
+    "schemes": [
+        "http"
+    ],
+    "swagger": "2.0",
+    "info": {
+        "description": "InventorySvc is a canonical read-model of actual host state with in-memory snapshots and periodic synchronization.\n\nMVP data sources:\n- selfProvisioning bootstrap file\n- cAdvisor workloads",
+        "title": "InventorySvc API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "basePath": "/",
+    "paths": {
+        "/api/v1/hosts": {
+            "get": {
+                "description": "Returns inventory hosts with optional label filtering. Query params are interpreted as label filters with AND semantics.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "hosts"
+                ],
+                "summary": "List hosts",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Label filter example",
+                        "name": "managed_by",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Label filter example",
+                        "name": "env",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Label filter example",
+                        "name": "purpose",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/internal_transport_http.HostsResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/hosts/{id}": {
+            "get": {
+                "description": "Returns full host details including workloads and per-source statuses.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "hosts"
+                ],
+                "summary": "Get host by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Host ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/internal_transport_http.HostResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/internal_transport_http.APIError"
+                        }
+                    }
+                }
+            }
+        },
+        "/healthz": {
+            "get": {
+                "description": "Returns service liveness state.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "health"
+                ],
+                "summary": "Health check",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/internal_transport_http.HealthResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/readyz": {
+            "get": {
+                "description": "Returns readiness state after initial inventory sync.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "health"
+                ],
+                "summary": "Readiness check",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/internal_transport_http.ReadinessResponse"
+                        }
+                    },
+                    "503": {
+                        "description": "Service Unavailable",
+                        "schema": {
+                            "$ref": "#/definitions/internal_transport_http.ReadinessResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "internal_transport_http.APIError": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "example": "host not found"
+                }
+            }
+        },
+        "internal_transport_http.HealthResponse": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "type": "string",
+                    "example": "ok"
+                }
+            }
+        },
+        "internal_transport_http.HostDTO": {
+            "type": "object",
+            "properties": {
+                "errors": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "fqdn": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "labels": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "lastObservedAt": {
+                    "type": "string"
+                },
+                "sourceStatus": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/internal_transport_http.SourceStatusDTO"
+                    }
+                },
+                "status": {
+                    "$ref": "#/definitions/inventory-svc_internal_domain.HostStatus"
+                },
+                "workloads": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/internal_transport_http.WorkloadDTO"
+                    }
+                }
+            }
+        },
+        "internal_transport_http.HostResponse": {
+            "type": "object",
+            "properties": {
+                "host": {
+                    "$ref": "#/definitions/internal_transport_http.HostDTO"
+                },
+                "metadata": {
+                    "$ref": "#/definitions/internal_transport_http.HostResponseMetadata"
+                }
+            }
+        },
+        "internal_transport_http.HostResponseMetadata": {
+            "type": "object",
+            "properties": {
+                "isPartial": {
+                    "type": "boolean"
+                },
+                "lastSyncAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "internal_transport_http.HostsResponse": {
+            "type": "object",
+            "properties": {
+                "hosts": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/internal_transport_http.HostDTO"
+                    }
+                },
+                "metadata": {
+                    "$ref": "#/definitions/internal_transport_http.HostsResponseMetadata"
+                }
+            }
+        },
+        "internal_transport_http.HostsResponseMetadata": {
+            "type": "object",
+            "properties": {
+                "failedHosts": {
+                    "type": "integer"
+                },
+                "isPartial": {
+                    "type": "boolean"
+                },
+                "lastFullSyncAt": {
+                    "type": "string"
+                },
+                "lastPartialSyncAt": {
+                    "type": "string"
+                },
+                "lastSuccessfulSyncAt": {
+                    "type": "string"
+                },
+                "lastSyncAt": {
+                    "type": "string"
+                },
+                "returnedHosts": {
+                    "type": "integer"
+                },
+                "syncDurationMs": {
+                    "type": "integer"
+                },
+                "totalHosts": {
+                    "type": "integer"
+                }
+            }
+        },
+        "internal_transport_http.ReadinessResponse": {
+            "type": "object",
+            "properties": {
+                "isPartial": {
+                    "type": "boolean"
+                },
+                "lastSyncAt": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string",
+                    "example": "ready"
+                }
+            }
+        },
+        "internal_transport_http.SourceStatusDTO": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "error": {
+                    "type": "string"
+                },
+                "observedAt": {
+                    "type": "string"
+                },
+                "source": {
+                    "type": "string"
+                },
+                "status": {
+                    "$ref": "#/definitions/inventory-svc_internal_domain.SourceStatusType"
+                }
+            }
+        },
+        "internal_transport_http.WorkloadDTO": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "lastSeenAt": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "runtime": {
+                    "type": "string"
+                },
+                "source": {
+                    "type": "string"
+                }
+            }
+        },
+        "inventory-svc_internal_domain.HostStatus": {
+            "type": "string",
+            "enum": [
+                "ok",
+                "partial",
+                "error",
+                "bootstrap_only"
+            ],
+            "x-enum-varnames": [
+                "HostStatusOK",
+                "HostStatusPartial",
+                "HostStatusError",
+                "HostStatusBootstrapOnly"
+            ]
+        },
+        "inventory-svc_internal_domain.SourceStatusType": {
+            "type": "string",
+            "enum": [
+                "ok",
+                "error",
+                "disabled"
+            ],
+            "x-enum-varnames": [
+                "SourceStatusOK",
+                "SourceStatusError",
+                "SourceStatusDisabled"
+            ]
+        }
+    }
+}
