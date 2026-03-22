@@ -1,0 +1,10 @@
+hosts:
+  - id: local-docker-host-01
+    fqdn: cadvisor
+    labels:
+      managed_by: team-a
+      purpose: compute
+      env: dev
+      role: docker-local
+      region: local
+      owner: platform

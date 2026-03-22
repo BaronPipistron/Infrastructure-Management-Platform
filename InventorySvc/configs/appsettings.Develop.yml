@@ -1,0 +1,26 @@
+server:
+  port: 8080
+
+logging:
+  level: info
+
+sync:
+  interval: 15s
+
+sources:
+  cadvisor:
+    isEnabled: true
+    includeSystemWorkloads: false
+    scheme: http
+    port: 8080
+    basePath: /api/v1.3
+    containersPath: /subcontainers/
+    timeout: 5s
+    urlTemplate: "{{scheme}}://{{fqdn}}:{{port}}{{basePath}}{{containersPath}}"
+  netbox:
+    isEnabled: false
+  otherSources:
+    isEnabled: false
+
+bootstrap:
+  selfProvisioningPath: ./selfProvisioning.Develop.yml
