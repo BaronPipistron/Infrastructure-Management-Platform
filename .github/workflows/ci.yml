@@ -2,12 +2,70 @@ name: CI
 
 on:
   pull_request:
+    branches: [main, develop]
   push:
-    branches: [main]
+    branches: [main, develop]
+
+permissions:
+  contents: read
 
 jobs:
-  placeholder:
+  detect_changes:
+    name: detect-changes
+    runs-on: ubuntu-latest
+    outputs:
+      inventory: ${{ steps.filter.outputs.inventory }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Paths filter
+        id: filter
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            inventory:
+              - 'InventorySvc/**'
+              - '.github/workflows/ci.yml'
+              - '.github/workflows/ci-inventory.yml'
+
+  ci_inventory:
+    name: ci-inventory
+    needs: detect_changes
+    if: ${{ needs.detect_changes.outputs.inventory == 'true' }}
+    uses: ./.github/workflows/ci-inventory.yml
+
+  ci_inventory_noop:
+    name: ci-inventory-noop
+    needs: detect_changes
+    if: ${{ needs.detect_changes.outputs.inventory != 'true' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - run: echo "GitHub CI Works!"
+      - name: No inventory changes
+        run: echo "InventorySvc was not changed, skipping inventory lint/test."
+
+  inventory_gate:
+    name: inventory-gate
+    runs-on: ubuntu-latest
+    needs: [detect_changes, ci_inventory, ci_inventory_noop]
+    if: ${{ always() }}
+    steps:
+      - name: Validate inventory checks
+        run: |
+          echo "detect_changes result: ${{ needs.detect_changes.result }}"
+          echo "Inventory changed: ${{ needs.detect_changes.outputs.inventory }}"
+          echo "ci_inventory result: ${{ needs.ci_inventory.result }}"
+          echo "ci_inventory_noop result: ${{ needs.ci_inventory_noop.result }}"
+
+          if [ "${{ needs.detect_changes.result }}" != "success" ]; then
+            echo "Failed to detect changes."
+            exit 1
+          fi
+
+          if [ "${{ needs.detect_changes.outputs.inventory }}" = "true" ] && [ "${{ needs.ci_inventory.result }}" != "success" ]; then
+            echo "Inventory checks failed."
+            exit 1
+          fi
+
+          echo "Inventory checks passed."
