@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import logging
 from pathlib import Path
 
 from app.ansible.runner_adapter import (
@@ -23,11 +24,32 @@ class _FakeRunnerModule:
 
     def run(self, **kwargs):
         self.calls.append(kwargs)
+        status_handler = kwargs.get("status_handler")
+        if callable(status_handler):
+            status_handler("running", None)
+
+        event_handler = kwargs.get("event_handler")
+        if callable(event_handler):
+            event_handler(
+                {
+                    "event": "runner_on_ok",
+                    "stdout": "ok: [srv-01.example.local]",
+                    "event_data": {
+                        "play": "Reconcile cadvisor",
+                        "task": "Ensure docker service is running",
+                        "host": "srv-01.example.local",
+                        "res": {"changed": False, "failed": False},
+                    },
+                }
+            )
+
         return _FakeRunnerResult()
 
 
-def test_ansible_runner_adapter_builds_inventory_and_extravars(monkeypatch) -> None:
+def test_ansible_runner_adapter_builds_inventory_and_extravars(monkeypatch, caplog) -> None:
     async def scenario() -> None:
+        caplog.set_level(logging.INFO, logger="reconciler.ansible")
+
         monkeypatch.setenv("ANSIBLE_SSH_USER", "ubuntu")
         monkeypatch.setenv("ANSIBLE_SSH_PRIVATE_KEY_PATH", "/tmp/id_rsa")
         monkeypatch.setenv("ANSIBLE_SSH_PORT", "2222")
@@ -77,5 +99,14 @@ def test_ansible_runner_adapter_builds_inventory_and_extravars(monkeypatch) -> N
         assert call["extravars"]["reconciler_component"] == "cadvisor"
         assert call["extravars"]["reconciler_correlation_id"] == "drift-001"
         assert call["timeout"] == 30
+        assert callable(call["status_handler"])
+        assert callable(call["event_handler"])
+
+        assert any(record.getMessage() == "ansible status update" for record in caplog.records)
+        ansible_output_records = [record for record in caplog.records if record.getMessage() == "ansible output"]
+        assert ansible_output_records
+        output_record = ansible_output_records[0]
+        assert output_record.__dict__["ansible_stdout"] == "ok: [srv-01.example.local]"
+        assert output_record.__dict__["task"] == "Ensure docker service is running"
 
     asyncio.run(scenario())

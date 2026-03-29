@@ -1,6 +1,7 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import asyncio
+import logging
 import os
 import time
 from dataclasses import dataclass
@@ -50,6 +51,7 @@ class AnsibleRunnerAdapter:
         self._config = config
         self._runner = runner_module if runner_module is not None else ansible_runner
         self._base_dir = (base_dir or Path.cwd()).resolve()
+        self._logger = logging.getLogger("reconciler.ansible")
 
         private_data_dir = Path(config.private_data_dir)
         if not private_data_dir.is_absolute():
@@ -76,6 +78,23 @@ class AnsibleRunnerAdapter:
         }
 
         started = time.monotonic()
+
+        def event_handler(event: dict[str, Any]) -> bool:
+            self._log_ansible_event(context, event)
+            return True
+
+        def status_handler(status: str, _runner_config: Any) -> None:
+            self._logger.info(
+                "ansible status update",
+                extra={
+                    "request_id": context.request_id,
+                    "fqdn": context.fqdn,
+                    "component": context.component,
+                    "correlation_id": context.correlation_id,
+                    "ansible_status": status,
+                },
+            )
+
         result = self._runner.run(
             private_data_dir=str(self._private_data_dir),
             playbook=str(plan.playbook_path),
@@ -85,6 +104,8 @@ class AnsibleRunnerAdapter:
             ident=context.request_id,
             quiet=True,
             timeout=self._config.run_timeout_seconds,
+            event_handler=event_handler,
+            status_handler=status_handler,
         )
         duration = time.monotonic() - started
 
@@ -98,6 +119,47 @@ class AnsibleRunnerAdapter:
             successful=success,
             duration_seconds=duration,
         )
+
+    def _log_ansible_event(
+        self,
+        context: AnsibleExecutionContext,
+        event: dict[str, Any],
+    ) -> None:
+        stdout = str(event.get("stdout", "")).strip()
+        if not stdout:
+            return
+
+        event_type = str(event.get("event", "unknown"))
+        event_data = event.get("event_data")
+        if not isinstance(event_data, dict):
+            event_data = {}
+
+        extra: dict[str, Any] = {
+            "request_id": context.request_id,
+            "fqdn": context.fqdn,
+            "component": context.component,
+            "correlation_id": context.correlation_id,
+            "ansible_event": event_type,
+            "ansible_stdout": stdout,
+        }
+
+        if event_data.get("play"):
+            extra["play"] = event_data["play"]
+        if event_data.get("task"):
+            extra["task"] = event_data["task"]
+        if event_data.get("host"):
+            extra["host"] = event_data["host"]
+
+        result_data = event_data.get("res")
+        if isinstance(result_data, dict):
+            if "changed" in result_data:
+                extra["changed"] = result_data["changed"]
+            if "failed" in result_data:
+                extra["failed"] = result_data["failed"]
+            if isinstance(result_data.get("msg"), str):
+                extra["ansible_message"] = result_data["msg"]
+
+        self._logger.info("ansible output", extra=extra)
 
     def _read_ssh_connection_details(self) -> SSHConnectionDetails:
         user = os.getenv(self._config.ssh.user_env_var, "").strip()

@@ -305,6 +305,7 @@ Adapter делает:
 - принятие reconcile request;
 - постановка задачи в очередь;
 - старт reconcile execution;
+- потоковый вывод ansible (stdout + task/play/host metadata);
 - завершение reconcile execution;
 - ошибки worker/ansible/operator.
 
