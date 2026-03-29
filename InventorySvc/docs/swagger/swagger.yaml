@@ -1,0 +1,239 @@
+basePath: /
+definitions:
+  internal_transport_http.APIError:
+    properties:
+      message:
+        example: host not found
+        type: string
+    type: object
+  internal_transport_http.HealthResponse:
+    properties:
+      status:
+        example: ok
+        type: string
+    type: object
+  internal_transport_http.HostDTO:
+    properties:
+      errors:
+        items:
+          type: string
+        type: array
+      fqdn:
+        type: string
+      id:
+        type: string
+      labels:
+        additionalProperties:
+          type: string
+        type: object
+      lastObservedAt:
+        type: string
+      sourceStatus:
+        additionalProperties:
+          $ref: '#/definitions/internal_transport_http.SourceStatusDTO'
+        type: object
+      status:
+        $ref: '#/definitions/inventory-svc_internal_domain.HostStatus'
+      workloads:
+        items:
+          $ref: '#/definitions/internal_transport_http.WorkloadDTO'
+        type: array
+    type: object
+  internal_transport_http.HostResponse:
+    properties:
+      host:
+        $ref: '#/definitions/internal_transport_http.HostDTO'
+      metadata:
+        $ref: '#/definitions/internal_transport_http.HostResponseMetadata'
+    type: object
+  internal_transport_http.HostResponseMetadata:
+    properties:
+      isPartial:
+        type: boolean
+      lastSyncAt:
+        type: string
+    type: object
+  internal_transport_http.HostsResponse:
+    properties:
+      hosts:
+        items:
+          $ref: '#/definitions/internal_transport_http.HostDTO'
+        type: array
+      metadata:
+        $ref: '#/definitions/internal_transport_http.HostsResponseMetadata'
+    type: object
+  internal_transport_http.HostsResponseMetadata:
+    properties:
+      failedHosts:
+        type: integer
+      isPartial:
+        type: boolean
+      lastFullSyncAt:
+        type: string
+      lastPartialSyncAt:
+        type: string
+      lastSuccessfulSyncAt:
+        type: string
+      lastSyncAt:
+        type: string
+      returnedHosts:
+        type: integer
+      syncDurationMs:
+        type: integer
+      totalHosts:
+        type: integer
+    type: object
+  internal_transport_http.ReadinessResponse:
+    properties:
+      isPartial:
+        type: boolean
+      lastSyncAt:
+        type: string
+      status:
+        example: ready
+        type: string
+    type: object
+  internal_transport_http.SourceStatusDTO:
+    properties:
+      enabled:
+        type: boolean
+      error:
+        type: string
+      observedAt:
+        type: string
+      source:
+        type: string
+      status:
+        $ref: '#/definitions/inventory-svc_internal_domain.SourceStatusType'
+    type: object
+  internal_transport_http.WorkloadDTO:
+    properties:
+      id:
+        type: string
+      image:
+        type: string
+      lastSeenAt:
+        type: string
+      name:
+        type: string
+      runtime:
+        type: string
+      source:
+        type: string
+    type: object
+  inventory-svc_internal_domain.HostStatus:
+    enum:
+    - ok
+    - partial
+    - error
+    - bootstrap_only
+    type: string
+    x-enum-varnames:
+    - HostStatusOK
+    - HostStatusPartial
+    - HostStatusError
+    - HostStatusBootstrapOnly
+  inventory-svc_internal_domain.SourceStatusType:
+    enum:
+    - ok
+    - error
+    - disabled
+    type: string
+    x-enum-varnames:
+    - SourceStatusOK
+    - SourceStatusError
+    - SourceStatusDisabled
+info:
+  contact: {}
+  description: |-
+    InventorySvc is a canonical read-model of actual host state with in-memory snapshots and periodic synchronization.
+
+    MVP data sources:
+    - selfProvisioning bootstrap file
+    - cAdvisor workloads
+  title: InventorySvc API
+  version: "1.0"
+paths:
+  /api/v1/hosts:
+    get:
+      description: Returns inventory hosts with optional label filtering. Query params
+        are interpreted as label filters with AND semantics.
+      parameters:
+      - description: Label filter example
+        in: query
+        name: managed_by
+        type: string
+      - description: Label filter example
+        in: query
+        name: env
+        type: string
+      - description: Label filter example
+        in: query
+        name: purpose
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_transport_http.HostsResponse'
+      summary: List hosts
+      tags:
+      - hosts
+  /api/v1/hosts/{id}:
+    get:
+      description: Returns full host details including workloads and per-source statuses.
+      parameters:
+      - description: Host ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_transport_http.HostResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/internal_transport_http.APIError'
+      summary: Get host by ID
+      tags:
+      - hosts
+  /healthz:
+    get:
+      description: Returns service liveness state.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_transport_http.HealthResponse'
+      summary: Health check
+      tags:
+      - health
+  /readyz:
+    get:
+      description: Returns readiness state after initial inventory sync.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_transport_http.ReadinessResponse'
+        "503":
+          description: Service Unavailable
+          schema:
+            $ref: '#/definitions/internal_transport_http.ReadinessResponse'
+      summary: Readiness check
+      tags:
+      - health
+schemes:
+- http
+swagger: "2.0"
