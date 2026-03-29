@@ -1,0 +1,7 @@
+﻿---
+- name: Reconcile cadvisor
+  hosts: all
+  become: true
+  gather_facts: true
+  roles:
+    - role: cadvisor

@@ -1,0 +1,78 @@
+﻿---
+- name: Fail on unsupported OS family for cadvisor role
+  ansible.builtin.fail:
+    msg: "Unsupported OS family for cadvisor role: {{ ansible_facts.os_family }}"
+  when: ansible_facts.os_family not in ["Debian", "RedHat"]
+
+- name: Resolve docker package name
+  ansible.builtin.set_fact:
+    cadvisor_docker_package: "{{ 'docker.io' if ansible_facts.os_family == 'Debian' else 'docker' }}"
+
+- name: Ensure docker package is installed
+  ansible.builtin.package:
+    name: "{{ cadvisor_docker_package }}"
+    state: present
+
+- name: Ensure docker service is running
+  ansible.builtin.service:
+    name: docker
+    enabled: true
+    state: started
+
+- name: Check if cadvisor container exists
+  ansible.builtin.command:
+    argv:
+      - docker
+      - ps
+      - -a
+      - --filter
+      - name=^/cadvisor$
+      - --format
+      - "{{ '{{.Names}}' }}"
+  register: cadvisor_container_exists
+  changed_when: false
+  failed_when: false
+
+- name: Check if cadvisor container is running
+  ansible.builtin.command:
+    argv:
+      - docker
+      - ps
+      - --filter
+      - name=^/cadvisor$
+      - --format
+      - "{{ '{{.Names}}' }}"
+  register: cadvisor_container_running
+  changed_when: false
+  failed_when: false
+
+- name: Create cadvisor container when absent
+  ansible.builtin.command:
+    argv:
+      - docker
+      - run
+      - -d
+      - --name
+      - cadvisor
+      - --restart
+      - unless-stopped
+      - --privileged
+      - --volume=/:/rootfs:ro
+      - --volume=/var/run:/var/run:rw
+      - --volume=/sys:/sys:ro
+      - --volume=/var/lib/docker:/var/lib/docker:ro
+      - "--publish={{ cadvisor_port | default(8080) }}:8080"
+      - "{{ cadvisor_image | default('gcr.io/cadvisor/cadvisor:v0.49.1') }}"
+  when: cadvisor_container_exists.stdout | trim == ""
+  changed_when: true
+
+- name: Start existing cadvisor container when stopped
+  ansible.builtin.command:
+    argv:
+      - docker
+      - start
+      - cadvisor
+  when:
+    - cadvisor_container_exists.stdout | trim != ""
+    - cadvisor_container_running.stdout | trim == ""
+  changed_when: true
