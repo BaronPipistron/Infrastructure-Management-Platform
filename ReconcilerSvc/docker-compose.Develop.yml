@@ -14,6 +14,5 @@ services:
       - ./configs:/app/configs:ro
       - ./ansible:/app/ansible:ro
       - ./tmp:/var/lib/reconciler-svc
-    ports:
-      - "8082:8082"
+    network_mode: host
     restart: unless-stopped
