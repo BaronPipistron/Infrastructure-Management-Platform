@@ -1,0 +1,18 @@
+﻿version: "3.9"
+
+services:
+  reconciler-svc:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: reconciler-svc
+    env_file:
+      - .env.example
+    environment:
+      APP_CONFIG_PATH: /app/configs/appsettings.Develop.yml
+    volumes:
+      - ./configs:/app/configs:ro
+      - ./ansible:/app/ansible:ro
+      - ./tmp:/var/lib/reconciler-svc
+    network_mode: host
+    restart: unless-stopped

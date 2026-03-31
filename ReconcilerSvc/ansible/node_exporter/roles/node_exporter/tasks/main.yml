@@ -1,0 +1,76 @@
+﻿---
+- name: Fail on unsupported OS family for node_exporter role
+  ansible.builtin.fail:
+    msg: "Unsupported OS family for node_exporter role: {{ ansible_facts.os_family }}"
+  when: ansible_facts.os_family not in ["Debian", "RedHat"]
+
+- name: Resolve docker package name
+  ansible.builtin.set_fact:
+    node_exporter_docker_package: "{{ 'docker.io' if ansible_facts.os_family == 'Debian' else 'docker' }}"
+
+- name: Ensure docker package is installed
+  ansible.builtin.package:
+    name: "{{ node_exporter_docker_package }}"
+    state: present
+
+- name: Ensure docker service is running
+  ansible.builtin.service:
+    name: docker
+    enabled: true
+    state: started
+
+- name: Check if node_exporter container exists
+  ansible.builtin.command:
+    argv:
+      - docker
+      - ps
+      - -a
+      - --filter
+      - name=^/node_exporter$
+      - --format
+      - "{{ '{{.Names}}' }}"
+  register: node_exporter_container_exists
+  changed_when: false
+  failed_when: false
+
+- name: Check if node_exporter container is running
+  ansible.builtin.command:
+    argv:
+      - docker
+      - ps
+      - --filter
+      - name=^/node_exporter$
+      - --format
+      - "{{ '{{.Names}}' }}"
+  register: node_exporter_container_running
+  changed_when: false
+  failed_when: false
+
+- name: Create node_exporter container when absent
+  ansible.builtin.command:
+    argv:
+      - docker
+      - run
+      - -d
+      - --name
+      - node_exporter
+      - --restart
+      - unless-stopped
+      - --pid=host
+      - --volume=/:/host:ro,rslave
+      - "--publish={{ node_exporter_port | default(9100) }}:9100"
+      - "{{ node_exporter_image | default('quay.io/prometheus/node-exporter:v1.8.2') }}"
+      - --path.rootfs=/host
+  when: node_exporter_container_exists.stdout | trim == ""
+  changed_when: true
+
+- name: Start existing node_exporter container when stopped
+  ansible.builtin.command:
+    argv:
+      - docker
+      - start
+      - node_exporter
+  when:
+    - node_exporter_container_exists.stdout | trim != ""
+    - node_exporter_container_running.stdout | trim == ""
+  changed_when: true

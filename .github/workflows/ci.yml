@@ -15,6 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       inventory: ${{ steps.filter.outputs.inventory }}
+      reconciler: ${{ steps.filter.outputs.reconciler }}
 
     steps:
       - name: Checkout
@@ -29,6 +30,10 @@ jobs:
               - 'InventorySvc/**'
               - '.github/workflows/ci.yml'
               - '.github/workflows/ci-inventory.yml'
+            reconciler:
+              - 'ReconcilerSvc/**'
+              - '.github/workflows/ci.yml'
+              - '.github/workflows/ci-reconciler.yml'
 
   ci_inventory:
     name: ci-inventory
@@ -69,3 +74,43 @@ jobs:
           fi
 
           echo "Inventory checks passed."
+
+  ci_reconciler:
+    name: ci-reconciler
+    needs: detect_changes
+    if: ${{ needs.detect_changes.outputs.reconciler == 'true' }}
+    uses: ./.github/workflows/ci-reconciler.yml
+
+  ci_reconciler_noop:
+    name: ci-reconciler-noop
+    needs: detect_changes
+    if: ${{ needs.detect_changes.outputs.reconciler != 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: No reconciler changes
+        run: echo "ReconcilerSvc was not changed, skipping reconciler lint/test."
+
+  reconciler_gate:
+    name: reconciler-gate
+    runs-on: ubuntu-latest
+    needs: [detect_changes, ci_reconciler, ci_reconciler_noop]
+    if: ${{ always() }}
+    steps:
+      - name: Validate reconciler checks
+        run: |
+          echo "detect_changes result: ${{ needs.detect_changes.result }}"
+          echo "Reconciler changed: ${{ needs.detect_changes.outputs.reconciler }}"
+          echo "ci_reconciler result: ${{ needs.ci_reconciler.result }}"
+          echo "ci_reconciler_noop result: ${{ needs.ci_reconciler_noop.result }}"
+
+          if [ "${{ needs.detect_changes.result }}" != "success" ]; then
+            echo "Failed to detect changes."
+            exit 1
+          fi
+
+          if [ "${{ needs.detect_changes.outputs.reconciler }}" = "true" ] && [ "${{ needs.ci_reconciler.result }}" != "success" ]; then
+            echo "Reconciler checks failed."
+            exit 1
+          fi
+
+          echo "Reconciler checks passed."
