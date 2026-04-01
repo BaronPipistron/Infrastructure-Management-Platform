@@ -1,0 +1,55 @@
+name: Parser Service CI
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: ParserSvc/go.mod
+          cache-dependency-path: ParserSvc/go.sum
+
+      - name: Download modules
+        working-directory: ParserSvc
+        run: go mod download
+
+      - name: Run golangci-lint
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: v1.64.8
+          working-directory: ParserSvc
+          args: --config .golangci.yml ./cmd/... ./internal/...
+
+  test:
+    name: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: ParserSvc/go.mod
+          cache-dependency-path: ParserSvc/go.sum
+
+      - name: Download modules
+        working-directory: ParserSvc
+        run: go mod download
+
+      - name: Run tests
+        working-directory: ParserSvc
+        run: go test ./... -count=1

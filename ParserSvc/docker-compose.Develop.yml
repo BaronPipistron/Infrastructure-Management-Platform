@@ -1,0 +1,16 @@
+﻿version: "3.9"
+
+services:
+  parser-svc:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: parser-svc
+    environment:
+      APP_CONFIG_PATH: /etc/parser-svc/configs/appconfig.Develop.yml
+    volumes:
+      - ./configs:/etc/parser-svc/configs:ro
+      - ./manifests:/etc/parser-svc/manifests:ro
+    ports:
+      - "8082:8080"
+    restart: unless-stopped
