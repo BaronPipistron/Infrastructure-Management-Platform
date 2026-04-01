@@ -1,0 +1,257 @@
+basePath: /
+definitions:
+  internal_transport_http.APIError:
+    properties:
+      message:
+        example: host not found
+        type: string
+    type: object
+  internal_transport_http.DesiredHostDTO:
+    properties:
+      env:
+        type: string
+      fqdn:
+        type: string
+      host_id:
+        type: string
+      ip:
+        type: string
+      labels:
+        additionalProperties:
+          type: string
+        type: object
+      managed_by:
+        type: string
+      purpose:
+        type: string
+      workloads:
+        items:
+          $ref: '#/definitions/internal_transport_http.DesiredWorkloadDTO'
+        type: array
+    type: object
+  internal_transport_http.DesiredStateDTO:
+    properties:
+      hosts:
+        items:
+          $ref: '#/definitions/internal_transport_http.DesiredHostDTO'
+        type: array
+    type: object
+  internal_transport_http.DesiredStateMetadata:
+    properties:
+      filesBroken:
+        type: integer
+      filesIgnored:
+        type: integer
+      filesLoaded:
+        type: integer
+      filesTotal:
+        type: integer
+      hostsTotal:
+        type: integer
+      loadedAt:
+        type: string
+      manifestMode:
+        type: string
+      manifestPath:
+        type: string
+      ready:
+        type: boolean
+      readyReason:
+        type: string
+      workloadsTotal:
+        type: integer
+    type: object
+  internal_transport_http.DesiredStateResponse:
+    properties:
+      desiredState:
+        $ref: '#/definitions/internal_transport_http.DesiredStateDTO'
+      metadata:
+        $ref: '#/definitions/internal_transport_http.DesiredStateMetadata'
+    type: object
+  internal_transport_http.DesiredWorkloadDTO:
+    properties:
+      deployment_mode:
+        type: string
+      enabled:
+        type: boolean
+      image:
+        type: string
+      name:
+        type: string
+      port:
+        type: integer
+      version:
+        type: string
+    type: object
+  internal_transport_http.HealthResponse:
+    properties:
+      status:
+        example: ok
+        type: string
+    type: object
+  internal_transport_http.HostResponse:
+    properties:
+      host:
+        $ref: '#/definitions/internal_transport_http.DesiredHostDTO'
+      metadata:
+        $ref: '#/definitions/internal_transport_http.HostResponseMetadata'
+    type: object
+  internal_transport_http.HostResponseMetadata:
+    properties:
+      filesBroken:
+        type: integer
+      filesLoaded:
+        type: integer
+      loadedAt:
+        type: string
+    type: object
+  internal_transport_http.HostsResponse:
+    properties:
+      hosts:
+        items:
+          $ref: '#/definitions/internal_transport_http.DesiredHostDTO'
+        type: array
+      metadata:
+        $ref: '#/definitions/internal_transport_http.HostsResponseMetadata'
+    type: object
+  internal_transport_http.HostsResponseMetadata:
+    properties:
+      filesBroken:
+        type: integer
+      filesLoaded:
+        type: integer
+      loadedAt:
+        type: string
+      returnedHosts:
+        type: integer
+      totalHosts:
+        type: integer
+      workloadsTotal:
+        type: integer
+    type: object
+  internal_transport_http.ReadinessResponse:
+    properties:
+      brokenFiles:
+        type: integer
+      hostsTotal:
+        type: integer
+      loadedFiles:
+        type: integer
+      readyReason:
+        type: string
+      status:
+        example: ready
+        type: string
+    type: object
+info:
+  contact: {}
+  description: |-
+    ParserSvc reads Structurizr deployment manifests in JSON format and exposes host-centric desired state for Drift Detector.
+
+    MVP behavior:
+    - reads manifests at startup only
+    - supports file or directory mode
+    - parses Structurizr deployment model and keeps desired state in memory
+  title: ParserSvc API
+  version: "1.0"
+paths:
+  /api/v1/desired-state:
+    get:
+      description: Returns full in-memory desired state with metadata.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_transport_http.DesiredStateResponse'
+      summary: Get full desired state
+      tags:
+      - desired-state
+  /api/v1/desired-state/hosts:
+    get:
+      description: Returns hosts from desired state. Supports fqdn query and label-based
+        filters with AND semantics.
+      parameters:
+      - description: Host FQDN filter
+        in: query
+        name: fqdn
+        type: string
+      - description: Label filter example
+        in: query
+        name: env
+        type: string
+      - description: Label filter example
+        in: query
+        name: managed_by
+        type: string
+      - description: Label filter example
+        in: query
+        name: purpose
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_transport_http.HostsResponse'
+      summary: List desired hosts
+      tags:
+      - desired-state
+  /api/v1/desired-state/hosts/{hostId}:
+    get:
+      description: Returns full desired host details.
+      parameters:
+      - description: Host ID
+        in: path
+        name: hostId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_transport_http.HostResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/internal_transport_http.APIError'
+      summary: Get desired host by ID
+      tags:
+      - desired-state
+  /healthz:
+    get:
+      description: Returns service liveness state.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_transport_http.HealthResponse'
+      summary: Health check
+      tags:
+      - health
+  /readyz:
+    get:
+      description: Returns readiness state based on startup manifest loading.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_transport_http.ReadinessResponse'
+        "503":
+          description: Service Unavailable
+          schema:
+            $ref: '#/definitions/internal_transport_http.ReadinessResponse'
+      summary: Readiness check
+      tags:
+      - health
+schemes:
+- http
+swagger: "2.0"
