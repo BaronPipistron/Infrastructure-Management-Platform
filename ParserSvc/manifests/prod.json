@@ -1,0 +1,127 @@
+{
+  "configuration" : { },
+  "description" : "Description",
+  "documentation" : { },
+  "id" : 0,
+  "model" : {
+    "deploymentNodes" : [ {
+      "containerInstances" : [ {
+        "containerId" : "2",
+        "deploymentGroups" : [ "Default" ],
+        "environment" : "Production",
+        "id" : "5",
+        "instanceId" : 1,
+        "properties" : {
+          "structurizr.dsl.identifier" : "ef6999cd-4da0-4e30-b3e3-4112e99d0587.9aea64b6-77c7-4f31-9bac-8685434e1dab.6292ded9-23fe-4561-bb70-eb897fb1906e",
+          "image" : "quay.io/prometheus/node-exporter:v1.8.2",
+          "port" : "9100",
+          "enabled" : "true",
+          "deployment_mode" : "container"
+        },
+        "tags" : "Container Instance"
+      }, {
+        "containerId" : "3",
+        "deploymentGroups" : [ "Default" ],
+        "environment" : "Production",
+        "id" : "6",
+        "instanceId" : 1,
+        "properties" : {
+          "structurizr.dsl.identifier" : "ef6999cd-4da0-4e30-b3e3-4112e99d0587.9aea64b6-77c7-4f31-9bac-8685434e1dab.37e7c868-4b7b-4cfb-8a90-6d63d22771fe",
+          "image" : "gcr.io/cadvisor/cadvisor:v0.49.1",
+          "port" : "8080",
+          "enabled" : "true",
+          "deployment_mode" : "container"
+        },
+        "tags" : "Container Instance"
+      } ],
+      "environment" : "Production",
+      "id" : "4",
+      "instances" : "1",
+      "name" : "srv-001",
+      "properties" : {
+        "structurizr.dsl.identifier" : "ef6999cd-4da0-4e30-b3e3-4112e99d0587.9aea64b6-77c7-4f31-9bac-8685434e1dab",
+        "fqdn" : "srv-001.example.local",
+        "managed_by" : "platform-team",
+        "purpose" : "compute",
+        "ip" : "10.10.10.11",
+        "env" : "prod",
+        "host_id" : "srv-001"
+      },
+      "tags" : "Element,Deployment Node"
+    } ],
+    "softwareSystems" : [ {
+      "containers" : [ {
+        "description" : "Host metrics exporter",
+        "documentation" : { },
+        "id" : "2",
+        "name" : "node_exporter",
+        "properties" : {
+          "structurizr.dsl.identifier" : "managedWorkloads.nodeExporter"
+        },
+        "tags" : "Element,Container",
+        "technology" : "container"
+      }, {
+        "description" : "Container and workload metrics collector",
+        "documentation" : { },
+        "id" : "3",
+        "name" : "cadvisor",
+        "properties" : {
+          "structurizr.dsl.identifier" : "managedWorkloads.cadvisor"
+        },
+        "tags" : "Element,Container",
+        "technology" : "container"
+      } ],
+      "documentation" : { },
+      "id" : "1",
+      "name" : "Managed Workloads",
+      "properties" : {
+        "structurizr.dsl.identifier" : "managedWorkloads"
+      },
+      "tags" : "Element,Software System"
+    } ]
+  },
+  "name" : "Infrastructure Management Desired State",
+  "properties" : {
+    "structurizr.inspection.error" : "14",
+    "structurizr.dsl" : "d29ya3NwYWNlICJJbmZyYXN0cnVjdHVyZSBNYW5hZ2VtZW50IERlc2lyZWQgU3RhdGUiIHsNCiAgIWlkZW50aWZpZXJzIGhpZXJhcmNoaWNhbA0KDQogIG1vZGVsIHsNCiAgICBtYW5hZ2VkV29ya2xvYWRzID0gc29mdHdhcmVTeXN0ZW0gIk1hbmFnZWQgV29ya2xvYWRzIiB7DQogICAgICBub2RlRXhwb3J0ZXIgPSBjb250YWluZXIgIm5vZGVfZXhwb3J0ZXIiICJIb3N0IG1ldHJpY3MgZXhwb3J0ZXIiICJjb250YWluZXIiDQogICAgICBjYWR2aXNvciA9IGNvbnRhaW5lciAiY2Fkdmlzb3IiICJDb250YWluZXIgYW5kIHdvcmtsb2FkIG1ldHJpY3MgY29sbGVjdG9yIiAiY29udGFpbmVyIg0KICAgIH0NCg0KICAgIGRlcGxveW1lbnRFbnZpcm9ubWVudCAiUHJvZHVjdGlvbiIgew0KICAgICAgZGVwbG95bWVudE5vZGUgInNydi0wMDEiIHsNCiAgICAgICAgcHJvcGVydGllcyB7DQogICAgICAgICAgaG9zdF9pZCAic3J2LTAwMSINCiAgICAgICAgICBmcWRuICJzcnYtMDAxLmV4YW1wbGUubG9jYWwiDQogICAgICAgICAgaXAgIjEwLjEwLjEwLjExIg0KICAgICAgICAgIGVudiAicHJvZCINCiAgICAgICAgICBtYW5hZ2VkX2J5ICJwbGF0Zm9ybS10ZWFtIg0KICAgICAgICAgIHB1cnBvc2UgImNvbXB1dGUiDQogICAgICAgIH0NCg0KICAgICAgICBjb250YWluZXJJbnN0YW5jZSBtYW5hZ2VkV29ya2xvYWRzLm5vZGVFeHBvcnRlciB7DQogICAgICAgICAgcHJvcGVydGllcyB7DQogICAgICAgICAgICBlbmFibGVkICJ0cnVlIg0KICAgICAgICAgICAgZGVwbG95bWVudF9tb2RlICJjb250YWluZXIiDQogICAgICAgICAgICBpbWFnZSAicXVheS5pby9wcm9tZXRoZXVzL25vZGUtZXhwb3J0ZXI6djEuOC4yIg0KICAgICAgICAgICAgcG9ydCAiOTEwMCINCiAgICAgICAgICB9DQogICAgICAgIH0NCg0KICAgICAgICBjb250YWluZXJJbnN0YW5jZSBtYW5hZ2VkV29ya2xvYWRzLmNhZHZpc29yIHsNCiAgICAgICAgICBwcm9wZXJ0aWVzIHsNCiAgICAgICAgICAgIGVuYWJsZWQgInRydWUiDQogICAgICAgICAgICBkZXBsb3ltZW50X21vZGUgImNvbnRhaW5lciINCiAgICAgICAgICAgIGltYWdlICJnY3IuaW8vY2Fkdmlzb3IvY2Fkdmlzb3I6djAuNDkuMSINCiAgICAgICAgICAgIHBvcnQgIjgwODAiDQogICAgICAgICAgfQ0KICAgICAgICB9DQogICAgICB9DQogICAgfQ0KICB9DQoNCiAgdmlld3Mgew0KICAgIGRlcGxveW1lbnQgbWFuYWdlZFdvcmtsb2FkcyAiUHJvZHVjdGlvbiIgInByb2QtZGVwbG95bWVudCIgew0KICAgICAgaW5jbHVkZSAqDQogICAgICBhdXRvTGF5b3V0IGxyDQogICAgfQ0KICB9DQp9",
+    "structurizr.inspection.info" : "0",
+    "structurizr.inspection.ignore" : "0",
+    "structurizr.inspection.warning" : "0"
+  },
+  "views" : {
+    "configuration" : {
+      "branding" : { },
+      "styles" : { },
+      "terminology" : { }
+    },
+    "deploymentViews" : [ {
+      "automaticLayout" : {
+        "applied" : false,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "elements" : [ {
+        "id" : "4",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "5",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "6",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "environment" : "Production",
+      "key" : "prod-deployment",
+      "name" : "Deployment View: Managed Workloads - Production",
+      "order" : 1,
+      "softwareSystemId" : "1"
+    } ]
+  }
+}
