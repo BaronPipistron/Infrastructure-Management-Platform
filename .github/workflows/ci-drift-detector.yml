@@ -1,0 +1,55 @@
+name: Drift Detector Service CI
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: DriftDetectorSvc/go.mod
+          cache-dependency-path: DriftDetectorSvc/go.sum
+
+      - name: Download modules
+        working-directory: DriftDetectorSvc
+        run: go mod download
+
+      - name: Run golangci-lint
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: v1.64.8
+          working-directory: DriftDetectorSvc
+          args: --config .golangci.yml ./cmd/... ./internal/...
+
+  test:
+    name: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: DriftDetectorSvc/go.mod
+          cache-dependency-path: DriftDetectorSvc/go.sum
+
+      - name: Download modules
+        working-directory: DriftDetectorSvc
+        run: go mod download
+
+      - name: Run tests
+        working-directory: DriftDetectorSvc
+        run: go test ./... -count=1
