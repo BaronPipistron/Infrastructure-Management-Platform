@@ -1,0 +1,148 @@
+basePath: /
+definitions:
+  drift-detector-svc_internal_domain.DetectionStats:
+    properties:
+      comparedHosts:
+        type: integer
+      desiredHosts:
+        type: integer
+      driftsFound:
+        type: integer
+      errors:
+        type: integer
+      reconcileSent:
+        type: integer
+      reconcileSuppressed:
+        type: integer
+      skippedHostsNoActualData:
+        type: integer
+      skippedHostsNoActualHost:
+        type: integer
+    type: object
+  internal_transport_http.APIError:
+    properties:
+      message:
+        example: detection cycle already running
+        type: string
+    type: object
+  internal_transport_http.DetectionCycleDTO:
+    properties:
+      cycleId:
+        type: string
+      durationMs:
+        type: integer
+      errorMessages:
+        items:
+          type: string
+        type: array
+      finishedAt:
+        type: string
+      inventoryMarkedPartial:
+        type: boolean
+      parserReady:
+        type: boolean
+      partial:
+        type: boolean
+      startedAt:
+        type: string
+      stats:
+        $ref: '#/definitions/drift-detector-svc_internal_domain.DetectionStats'
+      trigger:
+        type: string
+      warnings:
+        items:
+          type: string
+        type: array
+    type: object
+  internal_transport_http.DetectionRunResponse:
+    properties:
+      result:
+        $ref: '#/definitions/internal_transport_http.DetectionCycleDTO'
+      status:
+        example: completed
+        type: string
+    type: object
+  internal_transport_http.HealthResponse:
+    properties:
+      status:
+        example: ok
+        type: string
+    type: object
+  internal_transport_http.ReadinessResponse:
+    properties:
+      lastCycleAt:
+        type: string
+      lastCycleId:
+        type: string
+      lastCyclePartial:
+        type: boolean
+      status:
+        example: ready
+        type: string
+    type: object
+info:
+  contact: {}
+  description: |-
+    DriftDetectorSvc compares desired and actual host state, detects workload drift, and sends asynchronous reconcile commands.
+
+    MVP supported components:
+    - node_exporter
+    - cadvisor
+  title: DriftDetectorSvc API
+  version: "1.0"
+paths:
+  /api/v1/detection/run:
+    post:
+      description: Triggers one immediate drift detection cycle. Scheduler keeps running
+        independently.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_transport_http.DetectionRunResponse'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/internal_transport_http.APIError'
+        "502":
+          description: Bad Gateway
+          schema:
+            $ref: '#/definitions/internal_transport_http.APIError'
+      summary: Run one detection cycle manually
+      tags:
+      - detection
+  /healthz:
+    get:
+      description: Returns service liveness state.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_transport_http.HealthResponse'
+      summary: Health check
+      tags:
+      - health
+  /readyz:
+    get:
+      description: Returns readiness state based on successful detection cycle execution.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_transport_http.ReadinessResponse'
+        "503":
+          description: Service Unavailable
+          schema:
+            $ref: '#/definitions/internal_transport_http.ReadinessResponse'
+      summary: Readiness check
+      tags:
+      - health
+schemes:
+- http
+swagger: "2.0"

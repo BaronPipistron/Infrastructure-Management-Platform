@@ -1,0 +1,64 @@
+version: "3.9"
+
+services:
+  inventory-svc:
+    build:
+      context: ../InventorySvc
+      dockerfile: Dockerfile
+    container_name: inventory-svc
+    environment:
+      APP_CONFIG_PATH: /etc/inventory-svc/configs/appsettings.Develop.yml
+    volumes:
+      - ../InventorySvc/configs:/etc/inventory-svc/configs:ro
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+  parser-svc:
+    build:
+      context: ../ParserSvc
+      dockerfile: Dockerfile
+    container_name: parser-svc
+    environment:
+      APP_CONFIG_PATH: /etc/parser-svc/configs/appconfig.Develop.yml
+    volumes:
+      - ../ParserSvc/configs:/etc/parser-svc/configs:ro
+      - ../ParserSvc/manifests:/etc/parser-svc/manifests:ro
+    ports:
+      - "8082:8080"
+    restart: unless-stopped
+
+  reconciler-svc:
+    build:
+      context: ../ReconcilerSvc
+      dockerfile: Dockerfile
+    container_name: reconciler-svc
+    environment:
+      APP_CONFIG_PATH: /etc/reconciler-svc/configs/appsettings.Develop.yml
+      ANSIBLE_SSH_USER: root
+      ANSIBLE_SSH_PRIVATE_KEY_PATH: /tmp/.ssh/id_rsa
+      ANSIBLE_SSH_PORT: "22"
+      ANSIBLE_HOST_KEY_CHECKING: "False"
+    volumes:
+      - ../ReconcilerSvc/configs:/etc/reconciler-svc/configs:ro
+      - ../ReconcilerSvc/ansible:/etc/reconciler-svc/ansible:ro
+    ports:
+      - "8084:8082"
+    restart: unless-stopped
+
+  drift-detector-svc:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: drift-detector-svc
+    depends_on:
+      - inventory-svc
+      - parser-svc
+      - reconciler-svc
+    environment:
+      APP_CONFIG_PATH: /etc/drift-detector-svc/configs/appsettings.Develop.yml
+    volumes:
+      - ./configs:/etc/drift-detector-svc/configs:ro
+    ports:
+      - "8083:8080"
+    restart: unless-stopped

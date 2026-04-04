@@ -21,3 +21,7 @@ jobs:
   ci_reconciler:
     name: ci-reconciler
     uses: ./.github/workflows/ci-reconciler.yml
+
+  ci_drift_detector:
+    name: ci-drift-detector
+    uses: ./.github/workflows/ci-drift-detector.yml
