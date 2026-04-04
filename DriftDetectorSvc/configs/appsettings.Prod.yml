@@ -1,0 +1,38 @@
+server:
+  host: 0.0.0.0
+  port: 8080
+
+logging:
+  level: info
+
+detection:
+  interval: 1m
+  enabledComponents:
+    - node_exporter
+    - cadvisor
+
+antiSpam:
+  reconcileCooldown: 5m
+
+clients:
+  inventory:
+    baseURL: http://inventory-svc:8080
+    hostsPath: /api/v1/hosts
+    timeout: 10s
+    retry:
+      maxAttempts: 3
+      backoff: 500ms
+  parser:
+    baseURL: http://parser-svc:8080
+    desiredStatePath: /api/v1/desired-state
+    timeout: 10s
+    retry:
+      maxAttempts: 3
+      backoff: 500ms
+  reconciler:
+    baseURL: http://reconciler-svc:8082
+    reconcilePath: /api/v1/reconcile
+    timeout: 10s
+    retry:
+      maxAttempts: 3
+      backoff: 500ms
