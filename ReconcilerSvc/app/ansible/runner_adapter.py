@@ -83,7 +83,11 @@ class AnsibleRunnerAdapter:
             self._log_ansible_event(context, event)
             return True
 
-        def status_handler(status: str, _runner_config: Any) -> None:
+        def status_handler(
+            status: str,
+            runner_config: Any | None = None,
+            **_: Any,
+        ) -> None:
             self._logger.info(
                 "ansible status update",
                 extra={

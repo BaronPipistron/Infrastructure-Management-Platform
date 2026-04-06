@@ -26,7 +26,7 @@ class _FakeRunnerModule:
         self.calls.append(kwargs)
         status_handler = kwargs.get("status_handler")
         if callable(status_handler):
-            status_handler("running", None)
+            status_handler("running", runner_config={"fake": True})
 
         event_handler = kwargs.get("event_handler")
         if callable(event_handler):
