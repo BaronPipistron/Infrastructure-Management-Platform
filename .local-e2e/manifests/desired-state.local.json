@@ -1,0 +1,64 @@
+{
+  "name": "Infrastructure Management Local E2E Desired State",
+  "model": {
+    "softwareSystems": [
+      {
+        "id": "1",
+        "name": "Managed Workloads",
+        "containers": [
+          {
+            "id": "2",
+            "name": "node_exporter",
+            "technology": "container",
+            "properties": {}
+          },
+          {
+            "id": "3",
+            "name": "cadvisor",
+            "technology": "container",
+            "properties": {}
+          }
+        ]
+      }
+    ],
+    "deploymentNodes": [
+      {
+        "id": "managed-host-node",
+        "name": "managed-host",
+        "environment": "LocalE2E",
+        "properties": {
+          "host_id": "managed-host-01",
+          "fqdn": "managed-host",
+          "ip": "172.30.0.10",
+          "env": "dev",
+          "managed_by": "platform-team",
+          "purpose": "compute",
+          "region": "local",
+          "owner": "platform"
+        },
+        "containerInstances": [
+          {
+            "id": "node-exporter-instance",
+            "containerId": "2",
+            "properties": {
+              "enabled": "true",
+              "deployment_mode": "container",
+              "image": "quay.io/prometheus/node-exporter:v1.8.2",
+              "port": "9100"
+            }
+          },
+          {
+            "id": "cadvisor-instance",
+            "containerId": "3",
+            "properties": {
+              "enabled": "true",
+              "deployment_mode": "container",
+              "image": "gcr.io/cadvisor/cadvisor:v0.49.1",
+              "port": "8080"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
