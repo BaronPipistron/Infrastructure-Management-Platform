@@ -1,0 +1,36 @@
+server:
+  host: 0.0.0.0
+  port: 8082
+
+logging:
+  level: INFO
+
+reconciler:
+  max_parallel_reconciliations: 2
+  queue_capacity: 100
+  enqueue_timeout_seconds: 1.0
+
+ansible:
+  playbooks_base_dir: /etc/reconciler-svc/ansible
+  private_data_dir: /tmp/.ansible-runner
+  run_timeout_seconds: 900
+  ssh:
+    user_env_var: ANSIBLE_SSH_USER
+    private_key_path_env_var: ANSIBLE_SSH_PRIVATE_KEY_PATH
+    port_env_var: ANSIBLE_SSH_PORT
+    host_key_checking_env_var: ANSIBLE_HOST_KEY_CHECKING
+    default_port: 22
+
+operators:
+  node_exporter:
+    enabled: true
+    playbook: node_exporter/playbook.yml
+    default_parameters:
+      node_exporter_image: quay.io/prometheus/node-exporter:v1.8.2
+      node_exporter_port: 9100
+  cadvisor:
+    enabled: true
+    playbook: cadvisor/playbook.yml
+    default_parameters:
+      cadvisor_image: gcr.io/cadvisor/cadvisor:v0.49.1
+      cadvisor_port: 8080

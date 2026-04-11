@@ -12,3 +12,4 @@ nav:
       - Drift Detector: 02-components/02-drift-detector/index.md
       - Reconciler: 02-components/03-reconciler/index.md
       - Parser: 02-components/04-parser/index.md
+      - Local E2E Stand: 03-develop/01-local-e2e/index.md

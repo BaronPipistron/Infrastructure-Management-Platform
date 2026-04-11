@@ -1,0 +1,144 @@
+services:
+  managed-host:
+    build:
+      context: ./.local-e2e/managed-host
+      dockerfile: Dockerfile
+    container_name: managed-host
+    privileged: true
+    environment:
+      AUTHORIZED_KEY_PATH: /run/dev-ssh/reconciler_local_e2e_key.pub
+    volumes:
+      - ./.local-e2e/.runtime/ssh/reconciler_local_e2e_key.pub:/run/dev-ssh/reconciler_local_e2e_key.pub:ro
+      - managed-host-docker-data:/var/lib/docker
+    ports:
+      - "2222:22"
+    healthcheck:
+      test: ["CMD-SHELL", "docker info >/dev/null 2>&1 && ss -ltn | grep -q ':22 '"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 25s
+    restart: unless-stopped
+    networks:
+      - imp-local-e2e
+
+  inventory-svc:
+    build:
+      context: ./InventorySvc
+      dockerfile: Dockerfile
+    container_name: inventory-svc
+    depends_on:
+      managed-host:
+        condition: service_healthy
+    environment:
+      APP_CONFIG_PATH: /etc/inventory-svc/configs/appsettings.LocalE2E.yml
+    volumes:
+      - ./.local-e2e/configs/inventory/appsettings.LocalE2E.yml:/etc/inventory-svc/configs/appsettings.LocalE2E.yml:ro
+      - ./.local-e2e/configs/inventory/selfProvisioning.LocalE2E.yml:/etc/inventory-svc/configs/selfProvisioning.LocalE2E.yml:ro
+    ports:
+      - "18080:8080"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O - http://localhost:8080/readyz >/dev/null"]
+      interval: 10s
+      timeout: 4s
+      retries: 12
+      start_period: 12s
+    restart: unless-stopped
+    networks:
+      - imp-local-e2e
+
+  parser-svc:
+    build:
+      context: ./ParserSvc
+      dockerfile: Dockerfile
+    container_name: parser-svc
+    environment:
+      APP_CONFIG_PATH: /etc/parser-svc/configs/appconfig.LocalE2E.yml
+    volumes:
+      - ./.local-e2e/configs/parser/appconfig.LocalE2E.yml:/etc/parser-svc/configs/appconfig.LocalE2E.yml:ro
+      - ./.local-e2e/manifests:/etc/parser-svc/local-manifests:ro
+    ports:
+      - "18082:8080"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O - http://localhost:8080/readyz >/dev/null"]
+      interval: 10s
+      timeout: 4s
+      retries: 12
+      start_period: 10s
+    restart: unless-stopped
+    networks:
+      - imp-local-e2e
+
+  reconciler-svc:
+    build:
+      context: ./ReconcilerSvc
+      dockerfile: Dockerfile
+    container_name: reconciler-svc
+    depends_on:
+      managed-host:
+        condition: service_healthy
+    environment:
+      APP_CONFIG_PATH: /etc/reconciler-svc/local-e2e/appsettings.LocalE2E.yml
+      ANSIBLE_SSH_USER: root
+      ANSIBLE_SSH_PRIVATE_KEY_PATH: /tmp/reconciler-ssh/id_ed25519
+      ANSIBLE_SSH_PORT: "22"
+      ANSIBLE_HOST_KEY_CHECKING: "False"
+    entrypoint:
+      - /bin/sh
+      - -ec
+      - |
+        mkdir -p /tmp/reconciler-ssh
+        cp /run/dev-ssh/reconciler_local_e2e_key /tmp/reconciler-ssh/id_ed25519
+        chmod 600 /tmp/reconciler-ssh/id_ed25519
+        exec reconciler-svc
+    volumes:
+      - ./.local-e2e/configs/reconciler/appsettings.LocalE2E.yml:/etc/reconciler-svc/local-e2e/appsettings.LocalE2E.yml:ro
+      - ./ReconcilerSvc/ansible:/etc/reconciler-svc/ansible:ro
+      - ./.local-e2e/.runtime/ssh/reconciler_local_e2e_key:/run/dev-ssh/reconciler_local_e2e_key:ro
+    ports:
+      - "18084:8082"
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request,sys; urllib.request.urlopen('http://localhost:8082/readyz'); sys.exit(0)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 12s
+    restart: unless-stopped
+    networks:
+      - imp-local-e2e
+
+  drift-detector-svc:
+    build:
+      context: ./DriftDetectorSvc
+      dockerfile: Dockerfile
+    container_name: drift-detector-svc
+    depends_on:
+      inventory-svc:
+        condition: service_healthy
+      parser-svc:
+        condition: service_healthy
+      reconciler-svc:
+        condition: service_healthy
+    environment:
+      APP_CONFIG_PATH: /etc/drift-detector-svc/configs/appsettings.LocalE2E.yml
+    volumes:
+      - ./.local-e2e/configs/drift-detector/appsettings.LocalE2E.yml:/etc/drift-detector-svc/configs/appsettings.LocalE2E.yml:ro
+    ports:
+      - "18083:8080"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O - http://localhost:8080/readyz >/dev/null"]
+      interval: 10s
+      timeout: 4s
+      retries: 12
+      start_period: 18s
+    restart: unless-stopped
+    networks:
+      - imp-local-e2e
+
+networks:
+  imp-local-e2e:
+    name: imp-local-e2e
+    driver: bridge
+
+volumes:
+  managed-host-docker-data:
