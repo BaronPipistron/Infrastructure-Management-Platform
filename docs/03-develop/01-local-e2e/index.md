@@ -11,18 +11,6 @@
 5. Workloads приводятся к desired state.
 6. Drift исчезает на следующем цикле.
 
-## Что важно в новой модели
-
-`bootstrap-cadvisor` больше не нужен.
-
-Локальный cold-start теперь работает так:
-
-1. Inventory сначала не может получить cAdvisor-данные (`sourceStatus.cadvisor=error`).
-2. `CadvisorDetector` в bootstrap-режиме отправляет reconcile-команду на установку `cadvisor`, даже когда source unhealthy.
-3. Reconciler ставит `cadvisor` на managed-host.
-4. На следующем sync Inventory начинает читать `managed-host:8080`.
-5. После появления healthy source обычный drift-пайплайн продолжает converge (включая `node_exporter`).
-
 ## Состав стенда
 
 `docker-compose.LocalE2E.yml` поднимает:
