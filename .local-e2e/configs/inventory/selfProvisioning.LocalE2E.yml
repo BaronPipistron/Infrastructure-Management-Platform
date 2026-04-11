@@ -1,0 +1,10 @@
+hosts:
+  - id: managed-host-01
+    fqdn: managed-host
+    labels:
+      managed_by: platform-team
+      purpose: compute
+      env: dev
+      role: local-e2e
+      region: local
+      owner: platform
