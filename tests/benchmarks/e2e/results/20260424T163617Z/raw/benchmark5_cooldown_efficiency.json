@@ -1,0 +1,363 @@
+{
+  "benchmark": "Benchmark 5: Cooldown / anti-spam efficiency",
+  "without_cooldown": {
+    "cooldown": "0s",
+    "scenario_started_at": "2026-04-24T17:19:54.376920+00:00",
+    "cycles": [
+      {
+        "cycleId": "1777051194377981446",
+        "trigger": "manual_api",
+        "startedAt": "2026-04-24T17:19:54.377981446Z",
+        "finishedAt": "2026-04-24T17:19:54.387395998Z",
+        "durationMs": 9,
+        "stageTimings": {
+          "InventoryFetchMs": 0,
+          "ParserFetchMs": 0,
+          "DriftComparisonMs": 0,
+          "ReconcileDispatchMs": 7
+        },
+        "partial": true,
+        "inventoryMarkedPartial": true,
+        "parserReady": true,
+        "stats": {
+          "DesiredHosts": 12,
+          "ComparedHosts": 12,
+          "SkippedHostsNoActualHost": 0,
+          "SkippedHostsNoActualData": 4,
+          "DriftsFound": 4,
+          "ReconcileSent": 4,
+          "ReconcileSuppressed": 0,
+          "Errors": 0
+        },
+        "warnings": [
+          "inventory metadata marked response as partial",
+          "node_exporter on missing-host-0009 skipped: cadvisor source data is not healthy",
+          "node_exporter on missing-host-0010 skipped: cadvisor source data is not healthy",
+          "node_exporter on missing-host-0011 skipped: cadvisor source data is not healthy",
+          "node_exporter on missing-host-0012 skipped: cadvisor source data is not healthy"
+        ]
+      },
+      {
+        "cycleId": "1777051195891247036",
+        "trigger": "manual_api",
+        "startedAt": "2026-04-24T17:19:55.891247036Z",
+        "finishedAt": "2026-04-24T17:19:55.901403268Z",
+        "durationMs": 10,
+        "stageTimings": {
+          "InventoryFetchMs": 0,
+          "ParserFetchMs": 0,
+          "DriftComparisonMs": 0,
+          "ReconcileDispatchMs": 8
+        },
+        "partial": true,
+        "inventoryMarkedPartial": true,
+        "parserReady": true,
+        "stats": {
+          "DesiredHosts": 12,
+          "ComparedHosts": 12,
+          "SkippedHostsNoActualHost": 0,
+          "SkippedHostsNoActualData": 4,
+          "DriftsFound": 4,
+          "ReconcileSent": 4,
+          "ReconcileSuppressed": 0,
+          "Errors": 0
+        },
+        "warnings": [
+          "inventory metadata marked response as partial",
+          "node_exporter on missing-host-0009 skipped: cadvisor source data is not healthy",
+          "node_exporter on missing-host-0010 skipped: cadvisor source data is not healthy",
+          "node_exporter on missing-host-0011 skipped: cadvisor source data is not healthy",
+          "node_exporter on missing-host-0012 skipped: cadvisor source data is not healthy"
+        ]
+      },
+      {
+        "cycleId": "1777051197405206270",
+        "trigger": "manual_api",
+        "startedAt": "2026-04-24T17:19:57.40520627Z",
+        "finishedAt": "2026-04-24T17:19:57.41620463Z",
+        "durationMs": 10,
+        "stageTimings": {
+          "InventoryFetchMs": 0,
+          "ParserFetchMs": 0,
+          "DriftComparisonMs": 0,
+          "ReconcileDispatchMs": 9
+        },
+        "partial": true,
+        "inventoryMarkedPartial": true,
+        "parserReady": true,
+        "stats": {
+          "DesiredHosts": 12,
+          "ComparedHosts": 12,
+          "SkippedHostsNoActualHost": 0,
+          "SkippedHostsNoActualData": 4,
+          "DriftsFound": 4,
+          "ReconcileSent": 4,
+          "ReconcileSuppressed": 0,
+          "Errors": 0
+        },
+        "warnings": [
+          "inventory metadata marked response as partial",
+          "node_exporter on missing-host-0009 skipped: cadvisor source data is not healthy",
+          "node_exporter on missing-host-0010 skipped: cadvisor source data is not healthy",
+          "node_exporter on missing-host-0011 skipped: cadvisor source data is not healthy",
+          "node_exporter on missing-host-0012 skipped: cadvisor source data is not healthy"
+        ]
+      },
+      {
+        "cycleId": "1777051198920095435",
+        "trigger": "manual_api",
+        "startedAt": "2026-04-24T17:19:58.920095435Z",
+        "finishedAt": "2026-04-24T17:19:58.930761784Z",
+        "durationMs": 10,
+        "stageTimings": {
+          "InventoryFetchMs": 0,
+          "ParserFetchMs": 0,
+          "DriftComparisonMs": 0,
+          "ReconcileDispatchMs": 8
+        },
+        "partial": true,
+        "inventoryMarkedPartial": true,
+        "parserReady": true,
+        "stats": {
+          "DesiredHosts": 12,
+          "ComparedHosts": 12,
+          "SkippedHostsNoActualHost": 0,
+          "SkippedHostsNoActualData": 4,
+          "DriftsFound": 4,
+          "ReconcileSent": 4,
+          "ReconcileSuppressed": 0,
+          "Errors": 0
+        },
+        "warnings": [
+          "inventory metadata marked response as partial",
+          "node_exporter on missing-host-0009 skipped: cadvisor source data is not healthy",
+          "node_exporter on missing-host-0010 skipped: cadvisor source data is not healthy",
+          "node_exporter on missing-host-0011 skipped: cadvisor source data is not healthy",
+          "node_exporter on missing-host-0012 skipped: cadvisor source data is not healthy"
+        ]
+      },
+      {
+        "cycleId": "1777051200454022322",
+        "trigger": "manual_api",
+        "startedAt": "2026-04-24T17:20:00.454022322Z",
+        "finishedAt": "2026-04-24T17:20:00.46649803Z",
+        "durationMs": 12,
+        "stageTimings": {
+          "InventoryFetchMs": 0,
+          "ParserFetchMs": 0,
+          "DriftComparisonMs": 0,
+          "ReconcileDispatchMs": 10
+        },
+        "partial": true,
+        "inventoryMarkedPartial": true,
+        "parserReady": true,
+        "stats": {
+          "DesiredHosts": 12,
+          "ComparedHosts": 12,
+          "SkippedHostsNoActualHost": 0,
+          "SkippedHostsNoActualData": 4,
+          "DriftsFound": 4,
+          "ReconcileSent": 4,
+          "ReconcileSuppressed": 0,
+          "Errors": 0
+        },
+        "warnings": [
+          "inventory metadata marked response as partial",
+          "node_exporter on missing-host-0009 skipped: cadvisor source data is not healthy",
+          "node_exporter on missing-host-0010 skipped: cadvisor source data is not healthy",
+          "node_exporter on missing-host-0011 skipped: cadvisor source data is not healthy",
+          "node_exporter on missing-host-0012 skipped: cadvisor source data is not healthy"
+        ]
+      }
+    ],
+    "totals": {
+      "drifts_found": 20,
+      "reconcile_sent": 20,
+      "reconcile_suppressed": 0,
+      "errors": 0
+    }
+  },
+  "with_cooldown": {
+    "cooldown": "60s",
+    "scenario_started_at": "2026-04-24T17:20:35.915048+00:00",
+    "cycles": [
+      {
+        "cycleId": "1777051235916901263",
+        "trigger": "manual_api",
+        "startedAt": "2026-04-24T17:20:35.916901263Z",
+        "finishedAt": "2026-04-24T17:20:35.918376518Z",
+        "durationMs": 1,
+        "stageTimings": {
+          "InventoryFetchMs": 0,
+          "ParserFetchMs": 0,
+          "DriftComparisonMs": 0,
+          "ReconcileDispatchMs": 0
+        },
+        "partial": true,
+        "inventoryMarkedPartial": true,
+        "parserReady": true,
+        "stats": {
+          "DesiredHosts": 12,
+          "ComparedHosts": 12,
+          "SkippedHostsNoActualHost": 0,
+          "SkippedHostsNoActualData": 4,
+          "DriftsFound": 4,
+          "ReconcileSent": 0,
+          "ReconcileSuppressed": 4,
+          "Errors": 0
+        },
+        "warnings": [
+          "inventory metadata marked response as partial",
+          "node_exporter on missing-host-0009 skipped: cadvisor source data is not healthy",
+          "node_exporter on missing-host-0010 skipped: cadvisor source data is not healthy",
+          "node_exporter on missing-host-0011 skipped: cadvisor source data is not healthy",
+          "node_exporter on missing-host-0012 skipped: cadvisor source data is not healthy"
+        ]
+      },
+      {
+        "cycleId": "1777051237422606120",
+        "trigger": "manual_api",
+        "startedAt": "2026-04-24T17:20:37.42260612Z",
+        "finishedAt": "2026-04-24T17:20:37.424378706Z",
+        "durationMs": 1,
+        "stageTimings": {
+          "InventoryFetchMs": 0,
+          "ParserFetchMs": 0,
+          "DriftComparisonMs": 0,
+          "ReconcileDispatchMs": 0
+        },
+        "partial": true,
+        "inventoryMarkedPartial": true,
+        "parserReady": true,
+        "stats": {
+          "DesiredHosts": 12,
+          "ComparedHosts": 12,
+          "SkippedHostsNoActualHost": 0,
+          "SkippedHostsNoActualData": 4,
+          "DriftsFound": 4,
+          "ReconcileSent": 0,
+          "ReconcileSuppressed": 4,
+          "Errors": 0
+        },
+        "warnings": [
+          "inventory metadata marked response as partial",
+          "node_exporter on missing-host-0009 skipped: cadvisor source data is not healthy",
+          "node_exporter on missing-host-0010 skipped: cadvisor source data is not healthy",
+          "node_exporter on missing-host-0011 skipped: cadvisor source data is not healthy",
+          "node_exporter on missing-host-0012 skipped: cadvisor source data is not healthy"
+        ]
+      },
+      {
+        "cycleId": "1777051238930029157",
+        "trigger": "manual_api",
+        "startedAt": "2026-04-24T17:20:38.930029157Z",
+        "finishedAt": "2026-04-24T17:20:38.931548216Z",
+        "durationMs": 1,
+        "stageTimings": {
+          "InventoryFetchMs": 0,
+          "ParserFetchMs": 0,
+          "DriftComparisonMs": 0,
+          "ReconcileDispatchMs": 0
+        },
+        "partial": true,
+        "inventoryMarkedPartial": true,
+        "parserReady": true,
+        "stats": {
+          "DesiredHosts": 12,
+          "ComparedHosts": 12,
+          "SkippedHostsNoActualHost": 0,
+          "SkippedHostsNoActualData": 4,
+          "DriftsFound": 4,
+          "ReconcileSent": 0,
+          "ReconcileSuppressed": 4,
+          "Errors": 0
+        },
+        "warnings": [
+          "inventory metadata marked response as partial",
+          "node_exporter on missing-host-0009 skipped: cadvisor source data is not healthy",
+          "node_exporter on missing-host-0010 skipped: cadvisor source data is not healthy",
+          "node_exporter on missing-host-0011 skipped: cadvisor source data is not healthy",
+          "node_exporter on missing-host-0012 skipped: cadvisor source data is not healthy"
+        ]
+      },
+      {
+        "cycleId": "1777051240435973639",
+        "trigger": "manual_api",
+        "startedAt": "2026-04-24T17:20:40.435973639Z",
+        "finishedAt": "2026-04-24T17:20:40.43761461Z",
+        "durationMs": 1,
+        "stageTimings": {
+          "InventoryFetchMs": 0,
+          "ParserFetchMs": 0,
+          "DriftComparisonMs": 0,
+          "ReconcileDispatchMs": 0
+        },
+        "partial": true,
+        "inventoryMarkedPartial": true,
+        "parserReady": true,
+        "stats": {
+          "DesiredHosts": 12,
+          "ComparedHosts": 12,
+          "SkippedHostsNoActualHost": 0,
+          "SkippedHostsNoActualData": 4,
+          "DriftsFound": 4,
+          "ReconcileSent": 0,
+          "ReconcileSuppressed": 4,
+          "Errors": 0
+        },
+        "warnings": [
+          "inventory metadata marked response as partial",
+          "node_exporter on missing-host-0009 skipped: cadvisor source data is not healthy",
+          "node_exporter on missing-host-0010 skipped: cadvisor source data is not healthy",
+          "node_exporter on missing-host-0011 skipped: cadvisor source data is not healthy",
+          "node_exporter on missing-host-0012 skipped: cadvisor source data is not healthy"
+        ]
+      },
+      {
+        "cycleId": "1777051241941601488",
+        "trigger": "manual_api",
+        "startedAt": "2026-04-24T17:20:41.941601488Z",
+        "finishedAt": "2026-04-24T17:20:41.943211756Z",
+        "durationMs": 1,
+        "stageTimings": {
+          "InventoryFetchMs": 0,
+          "ParserFetchMs": 0,
+          "DriftComparisonMs": 0,
+          "ReconcileDispatchMs": 0
+        },
+        "partial": true,
+        "inventoryMarkedPartial": true,
+        "parserReady": true,
+        "stats": {
+          "DesiredHosts": 12,
+          "ComparedHosts": 12,
+          "SkippedHostsNoActualHost": 0,
+          "SkippedHostsNoActualData": 4,
+          "DriftsFound": 4,
+          "ReconcileSent": 0,
+          "ReconcileSuppressed": 4,
+          "Errors": 0
+        },
+        "warnings": [
+          "inventory metadata marked response as partial",
+          "node_exporter on missing-host-0009 skipped: cadvisor source data is not healthy",
+          "node_exporter on missing-host-0010 skipped: cadvisor source data is not healthy",
+          "node_exporter on missing-host-0011 skipped: cadvisor source data is not healthy",
+          "node_exporter on missing-host-0012 skipped: cadvisor source data is not healthy"
+        ]
+      }
+    ],
+    "totals": {
+      "drifts_found": 20,
+      "reconcile_sent": 0,
+      "reconcile_suppressed": 20,
+      "errors": 0
+    }
+  },
+  "derived": {
+    "would_send_without_cooldown": 20,
+    "sent_with_cooldown": 0,
+    "prevented_reconcile_commands": 20,
+    "suppression_ratio": 1.0
+  }
+}

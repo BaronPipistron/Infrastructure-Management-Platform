@@ -1,0 +1,124 @@
+{
+  "benchmark": "Benchmark 4: Partial data robustness",
+  "total_hosts": 20,
+  "missing_hosts": 6,
+  "cycle": {
+    "cycleId": "1777051164788109692",
+    "trigger": "manual_api",
+    "startedAt": "2026-04-24T17:19:24.788109692Z",
+    "finishedAt": "2026-04-24T17:19:24.789993465Z",
+    "durationMs": 1,
+    "stageTimings": {
+      "InventoryFetchMs": 0,
+      "ParserFetchMs": 0,
+      "DriftComparisonMs": 0,
+      "ReconcileDispatchMs": 0
+    },
+    "partial": true,
+    "inventoryMarkedPartial": true,
+    "parserReady": true,
+    "stats": {
+      "DesiredHosts": 20,
+      "ComparedHosts": 20,
+      "SkippedHostsNoActualHost": 0,
+      "SkippedHostsNoActualData": 6,
+      "DriftsFound": 6,
+      "ReconcileSent": 0,
+      "ReconcileSuppressed": 6,
+      "Errors": 0
+    },
+    "warnings": [
+      "inventory metadata marked response as partial",
+      "node_exporter on missing-host-0015 skipped: cadvisor source data is not healthy",
+      "node_exporter on missing-host-0016 skipped: cadvisor source data is not healthy",
+      "node_exporter on missing-host-0017 skipped: cadvisor source data is not healthy",
+      "node_exporter on missing-host-0018 skipped: cadvisor source data is not healthy",
+      "node_exporter on missing-host-0019 skipped: cadvisor source data is not healthy",
+      "node_exporter on missing-host-0020 skipped: cadvisor source data is not healthy"
+    ]
+  },
+  "inventory_metadata": {
+    "isPartial": true,
+    "totalHosts": 20,
+    "returnedHosts": 20,
+    "failedHosts": 6,
+    "lastSyncAt": "2026-04-24T17:19:12.106070775Z",
+    "lastSuccessfulSyncAt": "2026-04-24T17:19:12.106070775Z",
+    "lastPartialSyncAt": "2026-04-24T17:19:12.106070775Z",
+    "syncDurationMs": 11329
+  },
+  "warnings_missing_actual_data_count": 6,
+  "warnings_missing_actual_host_count": 0,
+  "reconcile_events_total": 0,
+  "node_exporter_reconcile_for_missing_hosts": 0,
+  "cadvisor_reconcile_for_missing_hosts": 0,
+  "sample_warnings_missing_actual_data": [
+    {
+      "level": "warn",
+      "ts": 1777051164.7898445,
+      "caller": "detection/service.go:229",
+      "msg": "skip detection due to missing actual data",
+      "cycle_id": "1777051164788109692",
+      "component": "node_exporter",
+      "host_id": "managed-host-0015",
+      "fqdn": "missing-host-0015",
+      "reason": "cadvisor source data is not healthy"
+    },
+    {
+      "level": "warn",
+      "ts": 1777051164.789908,
+      "caller": "detection/service.go:229",
+      "msg": "skip detection due to missing actual data",
+      "cycle_id": "1777051164788109692",
+      "component": "node_exporter",
+      "host_id": "managed-host-0016",
+      "fqdn": "missing-host-0016",
+      "reason": "cadvisor source data is not healthy"
+    },
+    {
+      "level": "warn",
+      "ts": 1777051164.7899234,
+      "caller": "detection/service.go:229",
+      "msg": "skip detection due to missing actual data",
+      "cycle_id": "1777051164788109692",
+      "component": "node_exporter",
+      "host_id": "managed-host-0017",
+      "fqdn": "missing-host-0017",
+      "reason": "cadvisor source data is not healthy"
+    },
+    {
+      "level": "warn",
+      "ts": 1777051164.7899373,
+      "caller": "detection/service.go:229",
+      "msg": "skip detection due to missing actual data",
+      "cycle_id": "1777051164788109692",
+      "component": "node_exporter",
+      "host_id": "managed-host-0018",
+      "fqdn": "missing-host-0018",
+      "reason": "cadvisor source data is not healthy"
+    },
+    {
+      "level": "warn",
+      "ts": 1777051164.7899466,
+      "caller": "detection/service.go:229",
+      "msg": "skip detection due to missing actual data",
+      "cycle_id": "1777051164788109692",
+      "component": "node_exporter",
+      "host_id": "managed-host-0019",
+      "fqdn": "missing-host-0019",
+      "reason": "cadvisor source data is not healthy"
+    },
+    {
+      "level": "warn",
+      "ts": 1777051164.789975,
+      "caller": "detection/service.go:229",
+      "msg": "skip detection due to missing actual data",
+      "cycle_id": "1777051164788109692",
+      "component": "node_exporter",
+      "host_id": "managed-host-0020",
+      "fqdn": "missing-host-0020",
+      "reason": "cadvisor source data is not healthy"
+    }
+  ],
+  "sample_reconcile_events": []
+}

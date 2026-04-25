@@ -1,0 +1,163 @@
+{
+  "benchmark": "Benchmark 3: Reconcile throughput",
+  "steady_cases": [
+    {
+      "case_name": "steady_parallel_1",
+      "parallelism": 1,
+      "request_count": 90,
+      "requests": {
+        "accepted_total": 90,
+        "rejected_total": 0,
+        "accepted_per_second": 382.6986,
+        "accepted_window_seconds": 0.2352,
+        "rejected_samples": []
+      },
+      "completions": {
+        "observed_total": 90,
+        "successful_total": 90,
+        "completion_throughput_success_per_second": 0.2392,
+        "avg_execution_duration_seconds": 4.2256
+      }
+    },
+    {
+      "case_name": "steady_parallel_2",
+      "parallelism": 2,
+      "request_count": 90,
+      "requests": {
+        "accepted_total": 90,
+        "rejected_total": 0,
+        "accepted_per_second": 442.3191,
+        "accepted_window_seconds": 0.2035,
+        "rejected_samples": []
+      },
+      "completions": {
+        "observed_total": 83,
+        "successful_total": 81,
+        "completion_throughput_success_per_second": 0.4636,
+        "avg_execution_duration_seconds": 4.2701
+      }
+    },
+    {
+      "case_name": "steady_parallel_4",
+      "parallelism": 4,
+      "request_count": 90,
+      "requests": {
+        "accepted_total": 90,
+        "rejected_total": 0,
+        "accepted_per_second": 338.9958,
+        "accepted_window_seconds": 0.2655,
+        "rejected_samples": []
+      },
+      "completions": {
+        "observed_total": 90,
+        "successful_total": 83,
+        "completion_throughput_success_per_second": 0.7822,
+        "avg_execution_duration_seconds": 4.8215
+      }
+    }
+  ],
+  "saturation_case": {
+    "case_name": "saturation_probe_parallel_2",
+    "parallelism": 2,
+    "request_count": 180,
+    "requests": {
+      "accepted_total": 102,
+      "rejected_total": 78,
+      "accepted_per_second": 30.3372,
+      "accepted_window_seconds": 3.3622,
+      "rejected_samples": [
+        {
+          "host_id": "managed-host-0103",
+          "fqdn": "bench-host-0103",
+          "status": 503,
+          "body": {
+            "detail": "reconcile queue is full"
+          }
+        },
+        {
+          "host_id": "managed-host-0104",
+          "fqdn": "bench-host-0104",
+          "status": 503,
+          "body": {
+            "detail": "reconcile queue is full"
+          }
+        },
+        {
+          "host_id": "managed-host-0105",
+          "fqdn": "bench-host-0105",
+          "status": 503,
+          "body": {
+            "detail": "reconcile queue is full"
+          }
+        },
+        {
+          "host_id": "managed-host-0106",
+          "fqdn": "bench-host-0106",
+          "status": 503,
+          "body": {
+            "detail": "reconcile queue is full"
+          }
+        },
+        {
+          "host_id": "managed-host-0107",
+          "fqdn": "bench-host-0107",
+          "status": 503,
+          "body": {
+            "detail": "reconcile queue is full"
+          }
+        },
+        {
+          "host_id": "managed-host-0108",
+          "fqdn": "bench-host-0108",
+          "status": 503,
+          "body": {
+            "detail": "reconcile queue is full"
+          }
+        },
+        {
+          "host_id": "managed-host-0109",
+          "fqdn": "bench-host-0109",
+          "status": 503,
+          "body": {
+            "detail": "reconcile queue is full"
+          }
+        },
+        {
+          "host_id": "managed-host-0110",
+          "fqdn": "bench-host-0110",
+          "status": 503,
+          "body": {
+            "detail": "reconcile queue is full"
+          }
+        },
+        {
+          "host_id": "managed-host-0111",
+          "fqdn": "bench-host-0111",
+          "status": 503,
+          "body": {
+            "detail": "reconcile queue is full"
+          }
+        },
+        {
+          "host_id": "managed-host-0112",
+          "fqdn": "bench-host-0112",
+          "status": 503,
+          "body": {
+            "detail": "reconcile queue is full"
+          }
+        }
+      ]
+    },
+    "completions": {
+      "observed_total": 100,
+      "successful_total": 99,
+      "completion_throughput_success_per_second": 0.4579,
+      "avg_execution_duration_seconds": 4.401
+    }
+  },
+  "observed_saturation_request_burst": 180,
+  "notes": [
+    "Throughput is measured by completed reconcile executions per second from Reconciler logs.",
+    "Saturation probe is based on HTTP 503 queue-full responses during a burst load."
+  ]
+}
