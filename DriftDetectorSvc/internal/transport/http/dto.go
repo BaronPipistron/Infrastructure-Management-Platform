@@ -27,17 +27,18 @@ type DetectionRunResponse struct {
 }
 
 type DetectionCycleDTO struct {
-	CycleID                string                `json:"cycleId"`
-	Trigger                string                `json:"trigger"`
-	StartedAt              time.Time             `json:"startedAt"`
-	FinishedAt             time.Time             `json:"finishedAt"`
-	DurationMs             int64                 `json:"durationMs"`
-	Partial                bool                  `json:"partial"`
-	InventoryMarkedPartial bool                  `json:"inventoryMarkedPartial"`
-	ParserReady            bool                  `json:"parserReady"`
-	Stats                  domain.DetectionStats `json:"stats"`
-	Warnings               []string              `json:"warnings,omitempty"`
-	ErrorMessages          []string              `json:"errorMessages,omitempty"`
+	CycleID                string                       `json:"cycleId"`
+	Trigger                string                       `json:"trigger"`
+	StartedAt              time.Time                    `json:"startedAt"`
+	FinishedAt             time.Time                    `json:"finishedAt"`
+	DurationMs             int64                        `json:"durationMs"`
+	StageTimings           domain.DetectionStageTimings `json:"stageTimings"`
+	Partial                bool                         `json:"partial"`
+	InventoryMarkedPartial bool                         `json:"inventoryMarkedPartial"`
+	ParserReady            bool                         `json:"parserReady"`
+	Stats                  domain.DetectionStats        `json:"stats"`
+	Warnings               []string                     `json:"warnings,omitempty"`
+	ErrorMessages          []string                     `json:"errorMessages,omitempty"`
 }
 
 func toDetectionCycleDTO(result domain.DetectionCycleResult) DetectionCycleDTO {
@@ -47,6 +48,7 @@ func toDetectionCycleDTO(result domain.DetectionCycleResult) DetectionCycleDTO {
 		StartedAt:              result.StartedAt,
 		FinishedAt:             result.FinishedAt,
 		DurationMs:             result.DurationMs,
+		StageTimings:           result.StageTimings,
 		Partial:                result.Partial,
 		InventoryMarkedPartial: result.InventoryMarkedPartial,
 		ParserReady:            result.ParserReady,

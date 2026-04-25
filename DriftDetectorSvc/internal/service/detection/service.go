@@ -145,7 +145,9 @@ func (s *Service) runCycle(ctx context.Context, trigger string) (domain.Detectio
 		"enabled_components", s.enabledComponents,
 	)
 
+	inventoryFetchStarted := time.Now()
 	actualState, err := s.inventory.FetchActualState(ctx)
+	result.StageTimings.InventoryFetchMs = time.Since(inventoryFetchStarted).Milliseconds()
 	if err != nil {
 		result.Stats.Errors++
 		result.ErrorMessages = append(result.ErrorMessages, fmt.Sprintf("inventory fetch failed: %v", err))
@@ -154,7 +156,9 @@ func (s *Service) runCycle(ctx context.Context, trigger string) (domain.Detectio
 		return result, fmt.Errorf("fetch actual state from inventory: %w", err)
 	}
 
+	parserFetchStarted := time.Now()
 	desiredState, err := s.parser.FetchDesiredState(ctx)
+	result.StageTimings.ParserFetchMs = time.Since(parserFetchStarted).Milliseconds()
 	if err != nil {
 		result.Stats.Errors++
 		result.ErrorMessages = append(result.ErrorMessages, fmt.Sprintf("parser fetch failed: %v", err))
@@ -180,6 +184,9 @@ func (s *Service) runCycle(ctx context.Context, trigger string) (domain.Detectio
 
 	hostsByID, hostsByFQDN := indexActualHosts(actualState.Hosts)
 	result.Stats.DesiredHosts = len(desiredState.Hosts)
+	compareTimer := time.Now()
+	var compareDuration time.Duration
+	var dispatchDuration time.Duration
 
 	for _, desiredHost := range desiredState.Hosts {
 		actualHost, found := lookupActualHost(desiredHost, hostsByID, hostsByFQDN)
@@ -262,7 +269,12 @@ func (s *Service) runCycle(ctx context.Context, trigger string) (domain.Detectio
 				continue
 			}
 
+			compareDuration += time.Since(compareTimer)
+			sendStarted := time.Now()
 			accepted, sendErr := s.reconciler.SendReconcile(ctx, command)
+			sendDuration := time.Since(sendStarted)
+			dispatchDuration += sendDuration
+			compareTimer = time.Now()
 			if sendErr != nil {
 				result.Stats.Errors++
 				result.ErrorMessages = append(result.ErrorMessages, fmt.Sprintf("reconcile send failed for %s on %s: %v", command.Component, command.FQDN, sendErr))
@@ -288,11 +300,19 @@ func (s *Service) runCycle(ctx context.Context, trigger string) (domain.Detectio
 		}
 	}
 
+	compareDuration += time.Since(compareTimer)
+	result.StageTimings.DriftComparisonMs = compareDuration.Milliseconds()
+	result.StageTimings.ReconcileDispatchMs = dispatchDuration.Milliseconds()
+
 	s.finishResult(&result)
 	s.log.Infow("detection cycle completed",
 		"cycle_id", cycleID,
 		"trigger", trigger,
 		"duration_ms", result.DurationMs,
+		"inventory_fetch_ms", result.StageTimings.InventoryFetchMs,
+		"parser_fetch_ms", result.StageTimings.ParserFetchMs,
+		"drift_comparison_ms", result.StageTimings.DriftComparisonMs,
+		"reconcile_dispatch_ms", result.StageTimings.ReconcileDispatchMs,
 		"partial", result.Partial,
 		"desired_hosts", result.Stats.DesiredHosts,
 		"compared_hosts", result.Stats.ComparedHosts,

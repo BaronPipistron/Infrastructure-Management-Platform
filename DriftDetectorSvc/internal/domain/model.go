@@ -164,12 +164,20 @@ type DetectionStats struct {
 	Errors                   int
 }
 
+type DetectionStageTimings struct {
+	InventoryFetchMs    int64
+	ParserFetchMs       int64
+	DriftComparisonMs   int64
+	ReconcileDispatchMs int64
+}
+
 type DetectionCycleResult struct {
 	CycleID                string
 	Trigger                string
 	StartedAt              time.Time
 	FinishedAt             time.Time
 	DurationMs             int64
+	StageTimings           DetectionStageTimings
 	Partial                bool
 	InventoryMarkedPartial bool
 	ParserReady            bool
@@ -191,6 +199,7 @@ func (r DetectionCycleResult) Clone() DetectionCycleResult {
 		StartedAt:              r.StartedAt,
 		FinishedAt:             r.FinishedAt,
 		DurationMs:             r.DurationMs,
+		StageTimings:           r.StageTimings,
 		Partial:                r.Partial,
 		InventoryMarkedPartial: r.InventoryMarkedPartial,
 		ParserReady:            r.ParserReady,

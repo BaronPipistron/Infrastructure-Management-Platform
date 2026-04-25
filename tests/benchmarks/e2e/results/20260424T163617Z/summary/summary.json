@@ -1,0 +1,12 @@
+{
+  "run_started_at": "2026-04-24T16:36:17.561936+00:00",
+  "run_finished_at": "2026-04-24T17:20:47.836443+00:00",
+  "scenario": "all",
+  "results_available": [
+    "detection_scalability",
+    "convergence_time",
+    "reconcile_throughput",
+    "partial_data_robustness",
+    "cooldown_efficiency"
+  ]
+}

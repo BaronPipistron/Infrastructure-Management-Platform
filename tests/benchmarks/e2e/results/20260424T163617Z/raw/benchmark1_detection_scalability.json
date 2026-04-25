@@ -1,0 +1,921 @@
+{
+  "benchmark": "Benchmark 1: Detection scalability",
+  "host_counts": [
+    1,
+    10,
+    100,
+    500
+  ],
+  "cases": [
+    {
+      "host_count": 1,
+      "scenario_started_at": "2026-04-24T16:36:44.294966+00:00",
+      "logical_scaling_mode": "single-managed-host-with-dns-aliases",
+      "convergence_before_measurement": {
+        "converged": true,
+        "attempts": [
+          {
+            "cycleId": "1777048604296586784",
+            "trigger": "manual_api",
+            "startedAt": "2026-04-24T16:36:44.296586784Z",
+            "finishedAt": "2026-04-24T16:36:44.297358208Z",
+            "durationMs": 0,
+            "stageTimings": {
+              "InventoryFetchMs": 0,
+              "ParserFetchMs": 0,
+              "DriftComparisonMs": 0,
+              "ReconcileDispatchMs": 0
+            },
+            "partial": false,
+            "inventoryMarkedPartial": false,
+            "parserReady": true,
+            "stats": {
+              "DesiredHosts": 1,
+              "ComparedHosts": 1,
+              "SkippedHostsNoActualHost": 0,
+              "SkippedHostsNoActualData": 0,
+              "DriftsFound": 0,
+              "ReconcileSent": 0,
+              "ReconcileSuppressed": 0,
+              "Errors": 0
+            }
+          }
+        ]
+      },
+      "samples": [
+        {
+          "cycleId": "1777048604299293369",
+          "trigger": "manual_api",
+          "startedAt": "2026-04-24T16:36:44.299293369Z",
+          "finishedAt": "2026-04-24T16:36:44.299933989Z",
+          "durationMs": 0,
+          "stageTimings": {
+            "InventoryFetchMs": 0,
+            "ParserFetchMs": 0,
+            "DriftComparisonMs": 0,
+            "ReconcileDispatchMs": 0
+          },
+          "partial": false,
+          "inventoryMarkedPartial": false,
+          "parserReady": true,
+          "stats": {
+            "DesiredHosts": 1,
+            "ComparedHosts": 1,
+            "SkippedHostsNoActualHost": 0,
+            "SkippedHostsNoActualData": 0,
+            "DriftsFound": 0,
+            "ReconcileSent": 0,
+            "ReconcileSuppressed": 0,
+            "Errors": 0
+          }
+        },
+        {
+          "cycleId": "1777048605104042394",
+          "trigger": "manual_api",
+          "startedAt": "2026-04-24T16:36:45.104042394Z",
+          "finishedAt": "2026-04-24T16:36:45.104952323Z",
+          "durationMs": 0,
+          "stageTimings": {
+            "InventoryFetchMs": 0,
+            "ParserFetchMs": 0,
+            "DriftComparisonMs": 0,
+            "ReconcileDispatchMs": 0
+          },
+          "partial": false,
+          "inventoryMarkedPartial": false,
+          "parserReady": true,
+          "stats": {
+            "DesiredHosts": 1,
+            "ComparedHosts": 1,
+            "SkippedHostsNoActualHost": 0,
+            "SkippedHostsNoActualData": 0,
+            "DriftsFound": 0,
+            "ReconcileSent": 0,
+            "ReconcileSuppressed": 0,
+            "Errors": 0
+          }
+        },
+        {
+          "cycleId": "1777048605908296604",
+          "trigger": "manual_api",
+          "startedAt": "2026-04-24T16:36:45.908296604Z",
+          "finishedAt": "2026-04-24T16:36:45.909208533Z",
+          "durationMs": 0,
+          "stageTimings": {
+            "InventoryFetchMs": 0,
+            "ParserFetchMs": 0,
+            "DriftComparisonMs": 0,
+            "ReconcileDispatchMs": 0
+          },
+          "partial": false,
+          "inventoryMarkedPartial": false,
+          "parserReady": true,
+          "stats": {
+            "DesiredHosts": 1,
+            "ComparedHosts": 1,
+            "SkippedHostsNoActualHost": 0,
+            "SkippedHostsNoActualData": 0,
+            "DriftsFound": 0,
+            "ReconcileSent": 0,
+            "ReconcileSuppressed": 0,
+            "Errors": 0
+          }
+        },
+        {
+          "cycleId": "1777048606730700083",
+          "trigger": "manual_api",
+          "startedAt": "2026-04-24T16:36:46.730700083Z",
+          "finishedAt": "2026-04-24T16:36:46.731666313Z",
+          "durationMs": 0,
+          "stageTimings": {
+            "InventoryFetchMs": 0,
+            "ParserFetchMs": 0,
+            "DriftComparisonMs": 0,
+            "ReconcileDispatchMs": 0
+          },
+          "partial": false,
+          "inventoryMarkedPartial": false,
+          "parserReady": true,
+          "stats": {
+            "DesiredHosts": 1,
+            "ComparedHosts": 1,
+            "SkippedHostsNoActualHost": 0,
+            "SkippedHostsNoActualData": 0,
+            "DriftsFound": 0,
+            "ReconcileSent": 0,
+            "ReconcileSuppressed": 0,
+            "Errors": 0
+          }
+        },
+        {
+          "cycleId": "1777048607552866455",
+          "trigger": "manual_api",
+          "startedAt": "2026-04-24T16:36:47.552866455Z",
+          "finishedAt": "2026-04-24T16:36:47.553841685Z",
+          "durationMs": 0,
+          "stageTimings": {
+            "InventoryFetchMs": 0,
+            "ParserFetchMs": 0,
+            "DriftComparisonMs": 0,
+            "ReconcileDispatchMs": 0
+          },
+          "partial": false,
+          "inventoryMarkedPartial": false,
+          "parserReady": true,
+          "stats": {
+            "DesiredHosts": 1,
+            "ComparedHosts": 1,
+            "SkippedHostsNoActualHost": 0,
+            "SkippedHostsNoActualData": 0,
+            "DriftsFound": 0,
+            "ReconcileSent": 0,
+            "ReconcileSuppressed": 0,
+            "Errors": 0
+          }
+        }
+      ],
+      "aggregates": {
+        "cycle_total_ms": {
+          "count": 5,
+          "min": 0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "avg": 0.0,
+          "max": 0
+        },
+        "inventory_fetch_ms": {
+          "count": 5,
+          "min": 0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "avg": 0.0,
+          "max": 0
+        },
+        "parser_fetch_ms": {
+          "count": 5,
+          "min": 0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "avg": 0.0,
+          "max": 0
+        },
+        "drift_compare_ms": {
+          "count": 5,
+          "min": 0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "avg": 0.0,
+          "max": 0
+        },
+        "reconcile_dispatch_ms": {
+          "count": 5,
+          "min": 0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "avg": 0.0,
+          "max": 0
+        },
+        "drifts_found_per_cycle": {
+          "count": 5,
+          "min": 0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "avg": 0.0,
+          "max": 0
+        },
+        "reconcile_sent_per_cycle": {
+          "count": 5,
+          "min": 0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "avg": 0.0,
+          "max": 0
+        }
+      }
+    },
+    {
+      "host_count": 10,
+      "scenario_started_at": "2026-04-24T16:37:12.469468+00:00",
+      "logical_scaling_mode": "single-managed-host-with-dns-aliases",
+      "convergence_before_measurement": {
+        "converged": true,
+        "attempts": [
+          {
+            "cycleId": "1777048632471361287",
+            "trigger": "manual_api",
+            "startedAt": "2026-04-24T16:37:12.471361287Z",
+            "finishedAt": "2026-04-24T16:37:12.472803231Z",
+            "durationMs": 1,
+            "stageTimings": {
+              "InventoryFetchMs": 0,
+              "ParserFetchMs": 0,
+              "DriftComparisonMs": 0,
+              "ReconcileDispatchMs": 0
+            },
+            "partial": false,
+            "inventoryMarkedPartial": false,
+            "parserReady": true,
+            "stats": {
+              "DesiredHosts": 10,
+              "ComparedHosts": 10,
+              "SkippedHostsNoActualHost": 0,
+              "SkippedHostsNoActualData": 0,
+              "DriftsFound": 0,
+              "ReconcileSent": 0,
+              "ReconcileSuppressed": 0,
+              "Errors": 0
+            }
+          }
+        ]
+      },
+      "samples": [
+        {
+          "cycleId": "1777048632474659387",
+          "trigger": "manual_api",
+          "startedAt": "2026-04-24T16:37:12.474659387Z",
+          "finishedAt": "2026-04-24T16:37:12.475836623Z",
+          "durationMs": 1,
+          "stageTimings": {
+            "InventoryFetchMs": 0,
+            "ParserFetchMs": 0,
+            "DriftComparisonMs": 0,
+            "ReconcileDispatchMs": 0
+          },
+          "partial": false,
+          "inventoryMarkedPartial": false,
+          "parserReady": true,
+          "stats": {
+            "DesiredHosts": 10,
+            "ComparedHosts": 10,
+            "SkippedHostsNoActualHost": 0,
+            "SkippedHostsNoActualData": 0,
+            "DriftsFound": 0,
+            "ReconcileSent": 0,
+            "ReconcileSuppressed": 0,
+            "Errors": 0
+          }
+        },
+        {
+          "cycleId": "1777048633295668199",
+          "trigger": "manual_api",
+          "startedAt": "2026-04-24T16:37:13.295668199Z",
+          "finishedAt": "2026-04-24T16:37:13.297400951Z",
+          "durationMs": 1,
+          "stageTimings": {
+            "InventoryFetchMs": 0,
+            "ParserFetchMs": 0,
+            "DriftComparisonMs": 0,
+            "ReconcileDispatchMs": 0
+          },
+          "partial": false,
+          "inventoryMarkedPartial": false,
+          "parserReady": true,
+          "stats": {
+            "DesiredHosts": 10,
+            "ComparedHosts": 10,
+            "SkippedHostsNoActualHost": 0,
+            "SkippedHostsNoActualData": 0,
+            "DriftsFound": 0,
+            "ReconcileSent": 0,
+            "ReconcileSuppressed": 0,
+            "Errors": 0
+          }
+        },
+        {
+          "cycleId": "1777048634120041012",
+          "trigger": "manual_api",
+          "startedAt": "2026-04-24T16:37:14.120041012Z",
+          "finishedAt": "2026-04-24T16:37:14.121447655Z",
+          "durationMs": 1,
+          "stageTimings": {
+            "InventoryFetchMs": 0,
+            "ParserFetchMs": 0,
+            "DriftComparisonMs": 0,
+            "ReconcileDispatchMs": 0
+          },
+          "partial": false,
+          "inventoryMarkedPartial": false,
+          "parserReady": true,
+          "stats": {
+            "DesiredHosts": 10,
+            "ComparedHosts": 10,
+            "SkippedHostsNoActualHost": 0,
+            "SkippedHostsNoActualData": 0,
+            "DriftsFound": 0,
+            "ReconcileSent": 0,
+            "ReconcileSuppressed": 0,
+            "Errors": 0
+          }
+        },
+        {
+          "cycleId": "1777048634945344654",
+          "trigger": "manual_api",
+          "startedAt": "2026-04-24T16:37:14.945344654Z",
+          "finishedAt": "2026-04-24T16:37:14.946717996Z",
+          "durationMs": 1,
+          "stageTimings": {
+            "InventoryFetchMs": 0,
+            "ParserFetchMs": 0,
+            "DriftComparisonMs": 0,
+            "ReconcileDispatchMs": 0
+          },
+          "partial": false,
+          "inventoryMarkedPartial": false,
+          "parserReady": true,
+          "stats": {
+            "DesiredHosts": 10,
+            "ComparedHosts": 10,
+            "SkippedHostsNoActualHost": 0,
+            "SkippedHostsNoActualData": 0,
+            "DriftsFound": 0,
+            "ReconcileSent": 0,
+            "ReconcileSuppressed": 0,
+            "Errors": 0
+          }
+        },
+        {
+          "cycleId": "1777048635750256753",
+          "trigger": "manual_api",
+          "startedAt": "2026-04-24T16:37:15.750256753Z",
+          "finishedAt": "2026-04-24T16:37:15.751636584Z",
+          "durationMs": 1,
+          "stageTimings": {
+            "InventoryFetchMs": 0,
+            "ParserFetchMs": 0,
+            "DriftComparisonMs": 0,
+            "ReconcileDispatchMs": 0
+          },
+          "partial": false,
+          "inventoryMarkedPartial": false,
+          "parserReady": true,
+          "stats": {
+            "DesiredHosts": 10,
+            "ComparedHosts": 10,
+            "SkippedHostsNoActualHost": 0,
+            "SkippedHostsNoActualData": 0,
+            "DriftsFound": 0,
+            "ReconcileSent": 0,
+            "ReconcileSuppressed": 0,
+            "Errors": 0
+          }
+        }
+      ],
+      "aggregates": {
+        "cycle_total_ms": {
+          "count": 5,
+          "min": 1,
+          "p50": 1.0,
+          "p95": 1.0,
+          "avg": 1.0,
+          "max": 1
+        },
+        "inventory_fetch_ms": {
+          "count": 5,
+          "min": 0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "avg": 0.0,
+          "max": 0
+        },
+        "parser_fetch_ms": {
+          "count": 5,
+          "min": 0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "avg": 0.0,
+          "max": 0
+        },
+        "drift_compare_ms": {
+          "count": 5,
+          "min": 0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "avg": 0.0,
+          "max": 0
+        },
+        "reconcile_dispatch_ms": {
+          "count": 5,
+          "min": 0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "avg": 0.0,
+          "max": 0
+        },
+        "drifts_found_per_cycle": {
+          "count": 5,
+          "min": 0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "avg": 0.0,
+          "max": 0
+        },
+        "reconcile_sent_per_cycle": {
+          "count": 5,
+          "min": 0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "avg": 0.0,
+          "max": 0
+        }
+      }
+    },
+    {
+      "host_count": 100,
+      "scenario_started_at": "2026-04-24T16:37:40.942617+00:00",
+      "logical_scaling_mode": "single-managed-host-with-dns-aliases",
+      "convergence_before_measurement": {
+        "converged": true,
+        "attempts": [
+          {
+            "cycleId": "1777048660944645414",
+            "trigger": "manual_api",
+            "startedAt": "2026-04-24T16:37:40.944645414Z",
+            "finishedAt": "2026-04-24T16:37:40.952030339Z",
+            "durationMs": 7,
+            "stageTimings": {
+              "InventoryFetchMs": 4,
+              "ParserFetchMs": 2,
+              "DriftComparisonMs": 0,
+              "ReconcileDispatchMs": 0
+            },
+            "partial": false,
+            "inventoryMarkedPartial": false,
+            "parserReady": true,
+            "stats": {
+              "DesiredHosts": 100,
+              "ComparedHosts": 100,
+              "SkippedHostsNoActualHost": 0,
+              "SkippedHostsNoActualData": 0,
+              "DriftsFound": 0,
+              "ReconcileSent": 0,
+              "ReconcileSuppressed": 0,
+              "Errors": 0
+            }
+          }
+        ]
+      },
+      "samples": [
+        {
+          "cycleId": "1777048660955920858",
+          "trigger": "manual_api",
+          "startedAt": "2026-04-24T16:37:40.955920858Z",
+          "finishedAt": "2026-04-24T16:37:40.962830669Z",
+          "durationMs": 6,
+          "stageTimings": {
+            "InventoryFetchMs": 3,
+            "ParserFetchMs": 2,
+            "DriftComparisonMs": 0,
+            "ReconcileDispatchMs": 0
+          },
+          "partial": false,
+          "inventoryMarkedPartial": false,
+          "parserReady": true,
+          "stats": {
+            "DesiredHosts": 100,
+            "ComparedHosts": 100,
+            "SkippedHostsNoActualHost": 0,
+            "SkippedHostsNoActualData": 0,
+            "DriftsFound": 0,
+            "ReconcileSent": 0,
+            "ReconcileSuppressed": 0,
+            "Errors": 0
+          }
+        },
+        {
+          "cycleId": "1777048661769137007",
+          "trigger": "manual_api",
+          "startedAt": "2026-04-24T16:37:41.769137007Z",
+          "finishedAt": "2026-04-24T16:37:41.778602897Z",
+          "durationMs": 9,
+          "stageTimings": {
+            "InventoryFetchMs": 6,
+            "ParserFetchMs": 3,
+            "DriftComparisonMs": 0,
+            "ReconcileDispatchMs": 0
+          },
+          "partial": false,
+          "inventoryMarkedPartial": false,
+          "parserReady": true,
+          "stats": {
+            "DesiredHosts": 100,
+            "ComparedHosts": 100,
+            "SkippedHostsNoActualHost": 0,
+            "SkippedHostsNoActualData": 0,
+            "DriftsFound": 0,
+            "ReconcileSent": 0,
+            "ReconcileSuppressed": 0,
+            "Errors": 0
+          }
+        },
+        {
+          "cycleId": "1777048662585305547",
+          "trigger": "manual_api",
+          "startedAt": "2026-04-24T16:37:42.585305547Z",
+          "finishedAt": "2026-04-24T16:37:42.592261259Z",
+          "durationMs": 6,
+          "stageTimings": {
+            "InventoryFetchMs": 4,
+            "ParserFetchMs": 2,
+            "DriftComparisonMs": 0,
+            "ReconcileDispatchMs": 0
+          },
+          "partial": false,
+          "inventoryMarkedPartial": false,
+          "parserReady": true,
+          "stats": {
+            "DesiredHosts": 100,
+            "ComparedHosts": 100,
+            "SkippedHostsNoActualHost": 0,
+            "SkippedHostsNoActualData": 0,
+            "DriftsFound": 0,
+            "ReconcileSent": 0,
+            "ReconcileSuppressed": 0,
+            "Errors": 0
+          }
+        },
+        {
+          "cycleId": "1777048663409852142",
+          "trigger": "manual_api",
+          "startedAt": "2026-04-24T16:37:43.409852142Z",
+          "finishedAt": "2026-04-24T16:37:43.415195806Z",
+          "durationMs": 5,
+          "stageTimings": {
+            "InventoryFetchMs": 3,
+            "ParserFetchMs": 1,
+            "DriftComparisonMs": 0,
+            "ReconcileDispatchMs": 0
+          },
+          "partial": false,
+          "inventoryMarkedPartial": false,
+          "parserReady": true,
+          "stats": {
+            "DesiredHosts": 100,
+            "ComparedHosts": 100,
+            "SkippedHostsNoActualHost": 0,
+            "SkippedHostsNoActualData": 0,
+            "DriftsFound": 0,
+            "ReconcileSent": 0,
+            "ReconcileSuppressed": 0,
+            "Errors": 0
+          }
+        },
+        {
+          "cycleId": "1777048664235104959",
+          "trigger": "manual_api",
+          "startedAt": "2026-04-24T16:37:44.235104959Z",
+          "finishedAt": "2026-04-24T16:37:44.239666399Z",
+          "durationMs": 4,
+          "stageTimings": {
+            "InventoryFetchMs": 2,
+            "ParserFetchMs": 1,
+            "DriftComparisonMs": 0,
+            "ReconcileDispatchMs": 0
+          },
+          "partial": false,
+          "inventoryMarkedPartial": false,
+          "parserReady": true,
+          "stats": {
+            "DesiredHosts": 100,
+            "ComparedHosts": 100,
+            "SkippedHostsNoActualHost": 0,
+            "SkippedHostsNoActualData": 0,
+            "DriftsFound": 0,
+            "ReconcileSent": 0,
+            "ReconcileSuppressed": 0,
+            "Errors": 0
+          }
+        }
+      ],
+      "aggregates": {
+        "cycle_total_ms": {
+          "count": 5,
+          "min": 4,
+          "p50": 6.0,
+          "p95": 8.4,
+          "avg": 6.0,
+          "max": 9
+        },
+        "inventory_fetch_ms": {
+          "count": 5,
+          "min": 2,
+          "p50": 3.0,
+          "p95": 5.6,
+          "avg": 3.6,
+          "max": 6
+        },
+        "parser_fetch_ms": {
+          "count": 5,
+          "min": 1,
+          "p50": 2.0,
+          "p95": 2.8,
+          "avg": 1.8,
+          "max": 3
+        },
+        "drift_compare_ms": {
+          "count": 5,
+          "min": 0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "avg": 0.0,
+          "max": 0
+        },
+        "reconcile_dispatch_ms": {
+          "count": 5,
+          "min": 0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "avg": 0.0,
+          "max": 0
+        },
+        "drifts_found_per_cycle": {
+          "count": 5,
+          "min": 0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "avg": 0.0,
+          "max": 0
+        },
+        "reconcile_sent_per_cycle": {
+          "count": 5,
+          "min": 0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "avg": 0.0,
+          "max": 0
+        }
+      }
+    },
+    {
+      "host_count": 500,
+      "scenario_started_at": "2026-04-24T16:38:09.742345+00:00",
+      "logical_scaling_mode": "single-managed-host-with-dns-aliases",
+      "convergence_before_measurement": {
+        "converged": true,
+        "attempts": [
+          {
+            "cycleId": "1777048689744951866",
+            "trigger": "manual_api",
+            "startedAt": "2026-04-24T16:38:09.744951866Z",
+            "finishedAt": "2026-04-24T16:38:09.766896444Z",
+            "durationMs": 21,
+            "stageTimings": {
+              "InventoryFetchMs": 13,
+              "ParserFetchMs": 8,
+              "DriftComparisonMs": 0,
+              "ReconcileDispatchMs": 0
+            },
+            "partial": false,
+            "inventoryMarkedPartial": false,
+            "parserReady": true,
+            "stats": {
+              "DesiredHosts": 500,
+              "ComparedHosts": 500,
+              "SkippedHostsNoActualHost": 0,
+              "SkippedHostsNoActualData": 0,
+              "DriftsFound": 0,
+              "ReconcileSent": 0,
+              "ReconcileSuppressed": 0,
+              "Errors": 0
+            }
+          }
+        ]
+      },
+      "samples": [
+        {
+          "cycleId": "1777048689769373821",
+          "trigger": "manual_api",
+          "startedAt": "2026-04-24T16:38:09.769373821Z",
+          "finishedAt": "2026-04-24T16:38:09.789824753Z",
+          "durationMs": 20,
+          "stageTimings": {
+            "InventoryFetchMs": 10,
+            "ParserFetchMs": 9,
+            "DriftComparisonMs": 0,
+            "ReconcileDispatchMs": 0
+          },
+          "partial": false,
+          "inventoryMarkedPartial": false,
+          "parserReady": true,
+          "stats": {
+            "DesiredHosts": 500,
+            "ComparedHosts": 500,
+            "SkippedHostsNoActualHost": 0,
+            "SkippedHostsNoActualData": 0,
+            "DriftsFound": 0,
+            "ReconcileSent": 0,
+            "ReconcileSuppressed": 0,
+            "Errors": 0
+          }
+        },
+        {
+          "cycleId": "1777048690593818402",
+          "trigger": "manual_api",
+          "startedAt": "2026-04-24T16:38:10.593818402Z",
+          "finishedAt": "2026-04-24T16:38:10.613672316Z",
+          "durationMs": 19,
+          "stageTimings": {
+            "InventoryFetchMs": 12,
+            "ParserFetchMs": 6,
+            "DriftComparisonMs": 0,
+            "ReconcileDispatchMs": 0
+          },
+          "partial": false,
+          "inventoryMarkedPartial": false,
+          "parserReady": true,
+          "stats": {
+            "DesiredHosts": 500,
+            "ComparedHosts": 500,
+            "SkippedHostsNoActualHost": 0,
+            "SkippedHostsNoActualData": 0,
+            "DriftsFound": 0,
+            "ReconcileSent": 0,
+            "ReconcileSuppressed": 0,
+            "Errors": 0
+          }
+        },
+        {
+          "cycleId": "1777048691418721697",
+          "trigger": "manual_api",
+          "startedAt": "2026-04-24T16:38:11.418721697Z",
+          "finishedAt": "2026-04-24T16:38:11.440256763Z",
+          "durationMs": 21,
+          "stageTimings": {
+            "InventoryFetchMs": 15,
+            "ParserFetchMs": 5,
+            "DriftComparisonMs": 0,
+            "ReconcileDispatchMs": 0
+          },
+          "partial": false,
+          "inventoryMarkedPartial": false,
+          "parserReady": true,
+          "stats": {
+            "DesiredHosts": 500,
+            "ComparedHosts": 500,
+            "SkippedHostsNoActualHost": 0,
+            "SkippedHostsNoActualData": 0,
+            "DriftsFound": 0,
+            "ReconcileSent": 0,
+            "ReconcileSuppressed": 0,
+            "Errors": 0
+          }
+        },
+        {
+          "cycleId": "1777048692247793627",
+          "trigger": "manual_api",
+          "startedAt": "2026-04-24T16:38:12.247793627Z",
+          "finishedAt": "2026-04-24T16:38:12.264095528Z",
+          "durationMs": 16,
+          "stageTimings": {
+            "InventoryFetchMs": 10,
+            "ParserFetchMs": 5,
+            "DriftComparisonMs": 0,
+            "ReconcileDispatchMs": 0
+          },
+          "partial": false,
+          "inventoryMarkedPartial": false,
+          "parserReady": true,
+          "stats": {
+            "DesiredHosts": 500,
+            "ComparedHosts": 500,
+            "SkippedHostsNoActualHost": 0,
+            "SkippedHostsNoActualData": 0,
+            "DriftsFound": 0,
+            "ReconcileSent": 0,
+            "ReconcileSuppressed": 0,
+            "Errors": 0
+          }
+        },
+        {
+          "cycleId": "1777048693069010384",
+          "trigger": "manual_api",
+          "startedAt": "2026-04-24T16:38:13.069010384Z",
+          "finishedAt": "2026-04-24T16:38:13.091052162Z",
+          "durationMs": 22,
+          "stageTimings": {
+            "InventoryFetchMs": 14,
+            "ParserFetchMs": 7,
+            "DriftComparisonMs": 0,
+            "ReconcileDispatchMs": 0
+          },
+          "partial": false,
+          "inventoryMarkedPartial": false,
+          "parserReady": true,
+          "stats": {
+            "DesiredHosts": 500,
+            "ComparedHosts": 500,
+            "SkippedHostsNoActualHost": 0,
+            "SkippedHostsNoActualData": 0,
+            "DriftsFound": 0,
+            "ReconcileSent": 0,
+            "ReconcileSuppressed": 0,
+            "Errors": 0
+          }
+        }
+      ],
+      "aggregates": {
+        "cycle_total_ms": {
+          "count": 5,
+          "min": 16,
+          "p50": 20.0,
+          "p95": 21.8,
+          "avg": 19.6,
+          "max": 22
+        },
+        "inventory_fetch_ms": {
+          "count": 5,
+          "min": 10,
+          "p50": 12.0,
+          "p95": 14.8,
+          "avg": 12.2,
+          "max": 15
+        },
+        "parser_fetch_ms": {
+          "count": 5,
+          "min": 5,
+          "p50": 6.0,
+          "p95": 8.6,
+          "avg": 6.4,
+          "max": 9
+        },
+        "drift_compare_ms": {
+          "count": 5,
+          "min": 0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "avg": 0.0,
+          "max": 0
+        },
+        "reconcile_dispatch_ms": {
+          "count": 5,
+          "min": 0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "avg": 0.0,
+          "max": 0
+        },
+        "drifts_found_per_cycle": {
+          "count": 5,
+          "min": 0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "avg": 0.0,
+          "max": 0
+        },
+        "reconcile_sent_per_cycle": {
+          "count": 5,
+          "min": 0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "avg": 0.0,
+          "max": 0
+        }
+      }
+    }
+  ],
+  "notes": [
+    "host_count=1: measured cycles were steady-state (no reconcile dispatch).",
+    "host_count=10: measured cycles were steady-state (no reconcile dispatch).",
+    "host_count=100: measured cycles were steady-state (no reconcile dispatch).",
+    "host_count=500: measured cycles were steady-state (no reconcile dispatch)."
+  ]
+}

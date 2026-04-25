@@ -1,0 +1,101 @@
+{
+  "benchmark": "Benchmark 2: Convergence time",
+  "target_host": {
+    "host_id": "managed-host-0001",
+    "fqdn": "bench-host-0001"
+  },
+  "convergence_before_break": {
+    "converged": true,
+    "attempts": [
+      {
+        "cycleId": "1777048718303935795",
+        "trigger": "manual_api",
+        "startedAt": "2026-04-24T16:38:38.303935795Z",
+        "finishedAt": "2026-04-24T16:38:38.304802022Z",
+        "durationMs": 0,
+        "stageTimings": {
+          "InventoryFetchMs": 0,
+          "ParserFetchMs": 0,
+          "DriftComparisonMs": 0,
+          "ReconcileDispatchMs": 0
+        },
+        "partial": false,
+        "inventoryMarkedPartial": false,
+        "parserReady": true,
+        "stats": {
+          "DesiredHosts": 1,
+          "ComparedHosts": 1,
+          "SkippedHostsNoActualHost": 0,
+          "SkippedHostsNoActualData": 0,
+          "DriftsFound": 0,
+          "ReconcileSent": 0,
+          "ReconcileSuppressed": 0,
+          "Errors": 0
+        }
+      }
+    ]
+  },
+  "injected_at": "2026-04-24T16:38:38.755670+00:00",
+  "first_detection_cycle": {
+    "cycleId": "1777048722831653359",
+    "trigger": "manual_api",
+    "startedAt": "2026-04-24T16:38:42.831653359Z",
+    "finishedAt": "2026-04-24T16:38:42.836489311Z",
+    "durationMs": 4,
+    "stageTimings": {
+      "InventoryFetchMs": 0,
+      "ParserFetchMs": 0,
+      "DriftComparisonMs": 0,
+      "ReconcileDispatchMs": 3
+    },
+    "partial": false,
+    "inventoryMarkedPartial": false,
+    "parserReady": true,
+    "stats": {
+      "DesiredHosts": 1,
+      "ComparedHosts": 1,
+      "SkippedHostsNoActualHost": 0,
+      "SkippedHostsNoActualData": 0,
+      "DriftsFound": 1,
+      "ReconcileSent": 1,
+      "ReconcileSuppressed": 0,
+      "Errors": 0
+    }
+  },
+  "drift_reconcile_event": {
+    "level": "info",
+    "ts": 1777048722.8364174,
+    "caller": "detection/service.go:293",
+    "msg": "reconcile request accepted",
+    "cycle_id": "1777048722831653359",
+    "component": "node_exporter",
+    "host_id": "managed-host-0001",
+    "fqdn": "bench-host-0001",
+    "request_id": "f4725e34-c48e-4c05-9282-b2bf22a9350f"
+  },
+  "reconcile_request_id": "f4725e34-c48e-4c05-9282-b2bf22a9350f",
+  "reconcile_finished_event": {
+    "timestamp": "2026-04-24T16:38:48.076469+00:00",
+    "level": "INFO",
+    "logger": "reconciler.executor",
+    "message": "reconcile execution finished",
+    "request_id": "f4725e34-c48e-4c05-9282-b2bf22a9350f",
+    "host_id": "managed-host-0001",
+    "fqdn": "bench-host-0001",
+    "component": "node_exporter",
+    "operator": "node_exporter_operator",
+    "correlation_id": "1777048722831653359:node_exporter:bench-host-0001",
+    "ansible_status": "successful",
+    "ansible_rc": 0,
+    "successful": true,
+    "duration_seconds": 5.239
+  },
+  "workload_restored_at": "2026-04-24T16:38:53.055715+00:00",
+  "metrics_ms": {
+    "inject_to_first_detection_ms": 4075,
+    "detection_to_reconcile_send_ms": 4,
+    "reconcile_send_to_workload_restored_ms": 10219,
+    "reconcile_send_to_reconcile_finished_ms": 5240,
+    "total_convergence_ms": 14300
+  }
+}
