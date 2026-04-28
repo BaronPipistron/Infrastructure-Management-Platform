@@ -3540,13 +3540,16 @@
     <bcf:citekey order="28" intorder="1">argocd_docs</bcf:citekey>
     <bcf:citekey order="28" intorder="2">flux_docs</bcf:citekey>
     <bcf:citekey order="29" intorder="1">onap_docs</bcf:citekey>
-    <bcf:citekey order="30" intorder="1">c4_model</bcf:citekey>
-    <bcf:citekey order="30" intorder="2">structurizr_dsl</bcf:citekey>
-    <bcf:citekey order="31" intorder="1">ansible_docs</bcf:citekey>
+    <bcf:citekey order="30" intorder="1">cadvisor_docs</bcf:citekey>
+    <bcf:citekey order="31" intorder="1">netbox_docs</bcf:citekey>
     <bcf:citekey order="32" intorder="1">c4_model</bcf:citekey>
     <bcf:citekey order="32" intorder="2">structurizr_dsl</bcf:citekey>
     <bcf:citekey order="33" intorder="1">ansible_docs</bcf:citekey>
-    <bcf:citekey order="34" intorder="1">ansible_docs</bcf:citekey>
+    <bcf:citekey order="34" intorder="1">c4_model</bcf:citekey>
+    <bcf:citekey order="34" intorder="2">structurizr_dsl</bcf:citekey>
+    <bcf:citekey order="35" intorder="1">ansible_docs</bcf:citekey>
+    <bcf:citekey order="36" intorder="1">ansible_docs</bcf:citekey>
+    <bcf:citekey order="37" intorder="1">infrastructure_management_platform_repo</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">

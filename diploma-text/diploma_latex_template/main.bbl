@@ -285,6 +285,63 @@
       \verb https://docs.onap.org/en/latest/
       \endverb
     \endentry
+    \entry{cadvisor_docs}{online}{}
+      \list{language}{1}{%
+        {english}%
+      }
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labeltitlesource}{title}
+      \field{title}{cAdvisor}
+      \field{urlday}{28}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://github.com/google/cadvisor
+      \endverb
+      \verb{url}
+      \verb https://github.com/google/cadvisor
+      \endverb
+    \endentry
+    \entry{netbox_docs}{online}{}
+      \list{language}{1}{%
+        {english}%
+      }
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labeltitlesource}{title}
+      \field{title}{NetBox Documentation}
+      \field{urlday}{28}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://netboxlabs.com/docs/netbox/en/stable/
+      \endverb
+      \verb{url}
+      \verb https://netboxlabs.com/docs/netbox/en/stable/
+      \endverb
+    \endentry
+    \entry{infrastructure_management_platform_repo}{online}{}
+      \list{language}{1}{%
+        {english}%
+      }
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labeltitlesource}{title}
+      \field{title}{Infrastructure Management Platform}
+      \field{urlday}{28}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://github.com/BaronPipistron/Infrastructure-Management-Platform
+      \endverb
+      \verb{url}
+      \verb https://github.com/BaronPipistron/Infrastructure-Management-Platform
+      \endverb
+    \endentry
   \enddatalist
 \endrefsection
 \endinput

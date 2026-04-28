@@ -6,46 +6,42 @@
 
 Требования к платформе формируются из целевого сценария: инженер описывает инфраструктурно значимую часть архитектуры, платформа строит desired state, получает actual state, сравнивает состояния и при необходимости инициирует reconcile. Такой сценарий требует как функциональных возможностей, так и эксплуатационных свойств, связанных с безопасностью автоматических действий.
 
-К функциональным требованиям относятся:
-\begin{enumerate}
-    \item поддержка Architecture-as-Code-описания как источника desired state;
-    \item построение host-centric desired state;
-    \item получение actual state управляемых хостов через inventory-источники;
-    \item хранение актуальных desired state и actual state в памяти сервисов;
-    \item предоставление API для получения desired state и actual state;
-    \item обнаружение drift между desired state и actual state;
-    \item формирование reconcile-команд только для поддерживаемых workload;
-    \item асинхронное принятие reconcile-команд и постановка задач на выполнение;
-    \item фиксация partial result при неполных данных actual state.
-\end{enumerate}
-
-Нефункциональные требования отражают ограничения инфраструктурной автоматизации:
-\begin{enumerate}
-    \item модульность: компоненты desired state, actual state, drift detection и reconcile должны развиваться независимо;
-    \item наблюдаемость: сервисы должны логировать ключевые стадии загрузки конфигурации, синхронизации, обнаружения drift и выполнения reconcile;
-    \item безопасность автоматических действий: отсутствие данных не должно автоматически трактоваться как drift;
-    \item расширяемость: должна существовать возможность добавления новых источников inventory, detector-ов и operator-ов;
-    \item воспроизводимость конфигурации: параметры сервисов должны задаваться через внешние конфигурационные файлы;
-    \item ограничение связности: сервисы должны взаимодействовать через явные HTTP-контракты;
-    \item контейнеризуемость: каждый сервис должен поставляться как самостоятельный runtime-артефакт.
-\end{enumerate}
-
-\begin{table}
-    \centering
-    \caption{Связь требований с проектными решениями платформы}
-    \label{tab:ch2-requirements-design}
+\begingroup
     \footnotesize
-    \begin{tabularx}{\textwidth}{|p{0.32\textwidth}|X|}\hline
-    Требование & Проектное решение \\ \hline
-    Использование Architecture-as-Code & Выделение ParserSvc, который читает Structurizr JSON и строит desired state \\ \hline
-    Получение фактического состояния & Выделение InventorySvc, который формирует actual state на основе bootstrap-описания и данных cAdvisor \\ \hline
-    Обнаружение drift & Выделение DriftDetectorSvc, сравнивающего desired state и actual state через HTTP API сервисов-источников \\ \hline
-    Автоматическое восстановление & Выделение ReconcilerSvc, принимающего reconcile-команды и запускающего operator-specific execution plan \\ \hline
-    Безопасная обработка неполных данных & Явная partial-семантика и запрет трактовать недоступность actual state как достаточное основание для произвольного reconcile \\ \hline
-    Расширяемость & Registry-подход для detector-ов и operator-ов, конфигурируемые внешние источники, изоляция сервисов \\ \hline
-    \end{tabularx}
+    \begin{longtable}{|p{0.18\textwidth}|p{0.34\textwidth}|p{0.4\textwidth}|}
+    \caption{Функциональные требования к компонентам платформы}
+    \label{tab:ch2-functional-requirements}\\ \hline
+    Компонент & Требование & Пример или ожидаемый результат \\ \hline
+    Платформа в целом & Поддерживать подход Architecture-as-Code как источник целевого состояния инфраструктуры. & Архитектурное описание определяет управляемые хосты и требуемые workload, а не используется только как статическая документация. \\ \hline
+    ParserSvc & Принимать архитектурное описание, подготовленное в Structurizr DSL и переданное в платформу как Structurizr JSON. & Из deployment-представления извлекаются \texttt{host\_id}, \texttt{fqdn}, labels хоста и container instances. \\ \hline
+    ParserSvc & Формировать host-centric desired state. & Для хоста сохраняются обязательные атрибуты, а для workload --- \texttt{name}, \texttt{enabled}, \texttt{deployment\_mode}, \texttt{image}, \texttt{version}, \texttt{port}. \\ \hline
+    InventorySvc & Получать actual state из среды исполнения управляемых хостов. & По bootstrap-описанию \texttt{selfProvisioning} сервис обращается к cAdvisor endpoint и строит snapshot фактически наблюдаемых контейнерных workload. \\ \hline
+    InventorySvc & Сохранять признаки полноты фактических данных. & В ответе отражаются \texttt{metadata.isPartial}, \texttt{failedHosts}, статус хоста и \texttt{sourceStatus} по источнику cAdvisor. \\ \hline
+    DriftDetectorSvc & Сопоставлять desired state и actual state и обнаруживать drift. & Для \texttt{node\_exporter} drift фиксируется, если workload включен в desired state, имеет режим \texttt{container}, источник cAdvisor здоров, но контейнер отсутствует в actual state. \\ \hline
+    DriftDetectorSvc & Учитывать развернутые компоненты и характеристики среды исполнения. & Проверка опирается на имя фактически наблюдаемого контейнера, режим \texttt{container}, доступность источника cAdvisor и параметры \texttt{image}/\texttt{port}, используемые при восстановлении. \\ \hline
+    ReconcilerSvc & Принимать reconcile-команды для поддерживаемых компонентов и запускать восстановление. & Для компонентов \texttt{node\_exporter} и \texttt{cadvisor} сервис ставит задачу в очередь и передает выполнение соответствующему operator-у. \\ \hline
+    ReconcilerSvc & Приводить инфраструктуру к требуемому состоянию через исполнительный механизм платформы. & Operator строит execution plan, а Ansible Runner выполняет playbook, устанавливающий или запускающий требуемый Docker-контейнер. \\ \hline
+    \end{longtable}
     \normalsize
-\end{table}
+\endgroup
+
+Нефункциональные требования отражают ограничения инфраструктурной автоматизации и задаются как проверяемые сценарии поведения системы.
+
+\begingroup
+    \footnotesize
+    \begin{longtable}{|p{0.22\textwidth}|p{0.48\textwidth}|p{0.22\textwidth}|}\caption{Нефункциональные требования в виде сценариев качества}
+    \label{tab:ch2-nonfunctional-requirements}\\ \hline
+    Вид требования & Сценарий качества & Метрика или наблюдаемый признак \\ \hline
+    Безопасность автоматических действий & Источник воздействия --- inventory-источник; воздействие --- недоступность или неполные данные; объект --- DriftDetectorSvc и ReconcilerSvc; реакция --- отсутствие данных не трактуется как произвольный drift и не приводит к восстановительной команде без подтвержденного состояния. & Признак partial result, счетчик пропущенных хостов без actual data, отсутствие reconcile-команд по неподтвержденным данным. \\ \hline
+    Надежность & Источник воздействия --- временный сбой одного или нескольких источников actual state; объект --- InventorySvc; реакция --- сервис возвращает доступные данные, явно помечает partial result и сохраняет статус ошибки по источнику. & \texttt{failedHosts}, \texttt{sourceStatus}, статус хоста \texttt{partial} или \texttt{error}. \\ \hline
+    Производительность & Источник воздействия --- плановый или ручной запуск detection cycle; объект --- DriftDetectorSvc; реакция --- сервис получает actual state и desired state, выполняет сравнение и фиксирует длительность стадий цикла. & Общая длительность цикла и stage timings: получение inventory, получение desired state, сравнение и отправка reconcile. \\ \hline
+    Управляемость нагрузки & Источник воздействия --- поток reconcile-команд выше скорости выполнения playbook; объект --- ReconcilerSvc; реакция --- команды принимаются в ограниченную очередь, выполняются фиксированным числом worker-ов, при переполнении сервис отказывает в приеме задачи. & \texttt{202 Accepted} при постановке в очередь; \texttt{503} при невозможности принять задачу. \\ \hline
+    Модифицируемость & Источник воздействия --- появление нового workload или нового источника actual state; объект --- DriftDetectorSvc, ReconcilerSvc, InventorySvc; реакция --- новый detector, operator или source добавляется без изменения общего HTTP-контракта между сервисами. & Наличие registry detector-ов и operator-ов; сохранение API-контрактов inventory, desired state и reconcile. \\ \hline
+    Переносимость & Источник воздействия --- развертывание платформы в другой среде исполнения; объект --- все сервисы; реакция --- параметры задаются внешними конфигурационными файлами и переменными окружения, сервисы поставляются как самостоятельные контейнеризуемые runtime-артефакты. & Использование \texttt{appsettings}, env-переменных и Docker-образов сервисов. \\ \hline
+    Безопасность доступа к хостам & Источник воздействия --- запуск восстановления на управляемом хосте; объект --- Ansible Runner Adapter; реакция --- SSH-параметры не зашиваются в код, а читаются из окружения. & Наличие переменных окружения для SSH-пользователя, private key, порта и политики проверки host key. \\ \hline
+    \end{longtable}
+    \normalsize
+\endgroup
 
 Таким образом, требования задают не только набор функций, но и архитектурные границы. Платформа должна быть достаточно автоматизированной, чтобы снижать ручную нагрузку, но достаточно ограниченной, чтобы автоматические действия оставались предсказуемыми.
 
@@ -135,6 +131,8 @@ InventorySvc хранит actual state как in-memory snapshot. API читае
 
 Сопоставление хостов выполняется по \texttt{host\_id}; если оно не дает результата, используется fallback по \texttt{fqdn}. Такое решение повышает устойчивость к неполному заполнению данных, но сохраняет приоритет стабильного идентификатора. Если actual-host для desired-host не найден, ситуация фиксируется как partial, а хост пропускается. Это важно: отсутствие хоста в actual state не рассматривается как достаточное основание для автоматического восстановления всех его workload.
 
+Сопоставление workload выполняется на уровне имени компонента. В desired state имя workload получается из container definition Structurizr-модели, связанной с container instance через \texttt{containerId}. В actual state InventorySvc нормализует ответ cAdvisor: из имени контейнера или alias выделяется базовое имя workload. DriftDetectorSvc сравнивает эти имена без учета регистра и пробелов. Поэтому архитектурный workload \texttt{node\_exporter} сопоставляется с фактически обнаруженным контейнером \texttt{node\_exporter}, а workload \texttt{cadvisor} --- с контейнером \texttt{cadvisor}. Дополнительно проверяется, что workload в desired state включен и имеет режим \texttt{container}.
+
 Detector-слой проектируется как расширяемый registry. Каждый detector отвечает за один поддерживаемый компонент и знает:
 \begin{enumerate}
     \item как найти соответствующий workload в desired state;
@@ -165,6 +163,8 @@ ReconcilerSvc реализуется на Python/FastAPI. Этот выбор с
 cAdvisor выбран как минимальный источник actual state для контейнерных workload. Он предоставляет сведения о контейнерах на хосте, которые можно нормализовать до модели workload.
 
 Ansible Runner выбран как механизм выполнения reconcile. Ansible хорошо подходит для agentless-доступа к хостам по SSH и для описания идемпотентных ролей установки контейнерных workload \cite{ansible_docs}. При этом сама платформа не становится ``оберткой над Ansible'': Ansible используется только внутри ReconcilerSvc как executor, а решение о drift принимается отдельным сервисом.
+
+В рассматриваемой реализации восстановление ориентировано на Docker-based workload. Если \texttt{cadvisor} отсутствует или его источник недоступен в bootstrap-сценарии, DriftDetectorSvc отправляет reconcile-команду, ReconcilerSvc выбирает \texttt{cadvisor}-operator, а Ansible playbook устанавливает Docker runtime при необходимости, запускает Docker service и создает либо стартует контейнер \texttt{cadvisor}. Для такого восстановления должны быть выполнены эксплуатационные предпосылки: целевой хост должен быть доступен по SSH, для него должен быть разрешен вход под указанным пользователем, private key должен быть передан ReconcilerSvc через переменную окружения, а FQDN хоста должен разрешаться из среды выполнения ReconcilerSvc. Роли установки рассчитаны на Linux-семейства Debian и RedHat, что также задает границу применимости текущего механизма.
 
 Границы MVP зафиксированы следующим образом:
 \begin{enumerate}
