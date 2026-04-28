@@ -1,0 +1,50 @@
+\documentclass{diploma}
+
+\student{Концебалов Олег Сергеевич}
+\group{М8О-409Б-22}
+\theme{Автоматизированная платформа управления инфраструктурой с поддержкой подхода Architecture-as-Code}
+
+\supervisor{Дзюба Дмитрий Владимирович}
+\firstConsultant{Булакина Мария Борисовна}
+\reviewer{Дзюба Дмитрий Владимирович}
+
+\faculty{№ 8 <<Компьютерные науки и прикладная математика>>}
+\department{806}
+\speciality{01.03.02 <<Прикладная математика и информатика>>}
+\profile{Информатика}
+
+\departmentFullName{№ 806}
+\headOfDepartment{Крылов Сергей Сергеевич}
+
+% Дата. Оставляем пустое место для дня
+\date{\uline{\hspace{24pt}} мая \the\year\ года}
+
+\input{contents/glossary}
+\input{contents/terms}
+
+\addbibresource{main.bib}
+
+\begin{document}
+    \maketitle
+
+    % \includepdf[pages=-]{extra/task} % Задание
+    \setcounter{page}{2} % Устанавливает счётчик страниц
+
+    \include{contents/0-abstract} % Реферат
+
+    \tableofcontents % Содержание 
+    \termsanddefenitions % Термины и определения
+    \listofabbreviations % Перечень сокращений и обозначений
+ 
+    \include{contents/01-introduction}
+    \include{contents/02-chapter-01-theory}
+    \include{contents/03-chapter-02-design}
+    \include{contents/04-chapter-03-implementation}
+    \include{contents/05-chapter-04-quality-evaluation}
+    \include{contents/06-chapter-05-practical-approbation}
+    
+    \include{contents/07-conclusion} % Заключение
+
+    \printbibliography % Список литературы
+
+\end{document}

@@ -1,0 +1,114 @@
+\newglossaryentry{architectureascode}{
+    name={Architecture-as-Code},
+    description={подход к представлению архитектуры программной системы в машинно обрабатываемом виде, пригодном для версионирования, анализа и использования в автоматизированных процессах}
+}
+
+\newglossaryentry{infrastructureascode}{
+    name={Infrastructure-as-Code},
+    description={подход к описанию инфраструктурных ресурсов и конфигураций в виде кода или декларативных спецификаций, которые могут храниться в системе контроля версий и применяться автоматизированными инструментами}
+}
+
+\newglossaryentry{desiredstate}{
+    name={Desired state},
+    description={желаемое состояние инфраструктуры, описывающее, какие хосты и workload должны находиться под управлением платформы и какими свойствами они должны обладать}
+}
+
+\newglossaryentry{actualstate}{
+    name={Actual state},
+    description={фактическое состояние инфраструктуры, полученное из источников инвентаризации и наблюдения на момент проверки}
+}
+
+\newglossaryentry{drift}{
+    name={Drift},
+    description={расхождение между desired state и actual state}
+}
+
+\newglossaryentry{reconcile}{
+    name={Reconcile},
+    description={процесс приведения фактического состояния инфраструктуры к желаемому состоянию}
+}
+
+\newglossaryentry{controlloop}{
+    name={Control loop},
+    description={повторяемый цикл управления, включающий получение desired state, получение actual state, сравнение состояний, обнаружение drift и запуск reconcile-действий}
+}
+
+\newglossaryentry{inventory}{
+    name={Inventory},
+    description={представление сведений об управляемых хостах, их атрибутах, доступности источников данных и фактически наблюдаемых workload}
+}
+
+\newglossaryentry{workload}{
+    name={Workload},
+    description={программный компонент или служебный процесс, размещаемый на управляемом хосте}
+}
+
+\newglossaryentry{managedhost}{
+    name={Managed host},
+    description={хост, находящийся в зоне управления платформы и участвующий в цикле сопоставления desired state и actual state}
+}
+
+\newglossaryentry{sourceoftruth}{
+    name={Source of truth},
+    description={источник данных, рассматриваемый системой как авторитетный для определённого типа сведений}
+}
+
+\newglossaryentry{partialresult}{
+    name={Partial result},
+    description={частичный результат получения или обработки данных, при котором часть сведений недоступна}
+}
+
+\newglossaryentry{detector}{
+    name={Detector},
+    description={компонент логики DriftDetectorSvc, отвечающий за проверку конкретного workload и формирование результата обнаружения drift}
+}
+
+\newglossaryentry{operator}{
+    name={Operator},
+    description={компонент логики ReconcilerSvc, отвечающий за построение плана выполнения reconcile для конкретного поддерживаемого workload}
+}
+
+\newglossaryentry{executionplan}{
+    name={Execution plan},
+    description={структурированное описание действия reconcile, включающее выбранный playbook, целевой хост, компонент и параметры выполнения}
+}
+
+\newglossaryentry{snapshot}{
+    name={Snapshot},
+    description={согласованная копия состояния, хранящаяся сервисом в памяти и используемая для выдачи API-ответов без обращения к источникам данных при каждом запросе}
+}
+
+\newglossaryentry{structurizr}{
+    name={Structurizr},
+    description={инструмент и формат описания архитектуры программных систем, поддерживающий C4-модель и экспорт архитектурной модели в JSON-представление}
+}
+
+\newglossaryentry{cadvisor}{
+    name={cAdvisor},
+    description={инструмент сбора сведений о контейнерах и их состоянии, используемый в текущем MVP как источник actual state для контейнерных workload}
+}
+
+\newglossaryentry{ansiblerunner}{
+    name={Ansible Runner},
+    description={инструмент программного запуска Ansible playbook, используемый в ReconcilerSvc для выполнения reconcile-действий}
+}
+
+\newglossaryentry{parsersvc}{
+    name={ParserSvc},
+    description={сервис платформы, отвечающий за разбор Structurizr JSON, построение host-centric desired state и выдачу этого состояния через API}
+}
+
+\newglossaryentry{inventorysvc}{
+    name={InventorySvc},
+    description={сервис платформы, отвечающий за формирование actual state управляемых хостов на основе bootstrap-описания и данных внешних источников}
+}
+
+\newglossaryentry{driftdetectorsvc}{
+    name={DriftDetectorSvc},
+    description={сервис платформы, сравнивающий desired state и actual state, обнаруживающий drift и отправляющий reconcile-команды}
+}
+
+\newglossaryentry{reconcilersvc}{
+    name={ReconcilerSvc},
+    description={сервис платформы, принимающий reconcile-команды, выбирающий operator и асинхронно запускающий действия восстановления}
+}
