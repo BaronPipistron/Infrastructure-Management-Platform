@@ -65,6 +65,44 @@
       \field{title}{The Book Of Kubernetes: A Complete Guide to Container Orchestration}
       \field{year}{2022}
     \endentry
+    \entry{cadvisor_docs}{online}{}
+      \list{language}{1}{%
+        {english}%
+      }
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labeltitlesource}{title}
+      \field{title}{cAdvisor}
+      \field{urlday}{28}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://github.com/google/cadvisor
+      \endverb
+      \verb{url}
+      \verb https://github.com/google/cadvisor
+      \endverb
+    \endentry
+    \entry{netbox_docs}{online}{}
+      \list{language}{1}{%
+        {english}%
+      }
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labeltitlesource}{title}
+      \field{title}{NetBox Documentation}
+      \field{urlday}{28}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://netboxlabs.com/docs/netbox/en/stable/
+      \endverb
+      \verb{url}
+      \verb https://netboxlabs.com/docs/netbox/en/stable/
+      \endverb
+    \endentry
     \entry{terraform_docs}{book}{}
       \name{author}{1}{}{%
         {{hash=51785e35bd7d8111037fb5be4ba0ccd5}{%
@@ -85,8 +123,8 @@
       \strng{authorbibnamehash}{51785e35bd7d8111037fb5be4ba0ccd5}
       \strng{authornamehash}{51785e35bd7d8111037fb5be4ba0ccd5}
       \strng{authorfullhash}{51785e35bd7d8111037fb5be4ba0ccd5}
-      \field{sortinit}{4}
-      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Mastering Terraform: A practical guide to building and deploying infrastructure on AWS, Azure, and GCP}
@@ -96,8 +134,8 @@
       \list{language}{1}{%
         {english}%
       }
-      \field{sortinit}{4}
-      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
       \field{labeltitlesource}{title}
       \field{title}{Infrastructure as Code}
       \field{urlday}{10}
@@ -128,8 +166,8 @@
       \strng{authorbibnamehash}{0653a11aad687a389587e0000e0f4a13}
       \strng{authornamehash}{0653a11aad687a389587e0000e0f4a13}
       \strng{authorfullhash}{0653a11aad687a389587e0000e0f4a13}
-      \field{sortinit}{5}
-      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{The C4 model for visualising software architecture}
@@ -148,8 +186,8 @@
       \list{language}{1}{%
         {english}%
       }
-      \field{sortinit}{6}
-      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
       \field{labeltitlesource}{title}
       \field{title}{Structurizr DSL}
       \field{urlday}{30}
@@ -183,8 +221,8 @@
       \strng{authorbibnamehash}{6d45956275ddc2f67289c367c877fbee}
       \strng{authornamehash}{6d45956275ddc2f67289c367c877fbee}
       \strng{authorfullhash}{6d45956275ddc2f67289c367c877fbee}
-      \field{sortinit}{8}
-      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Production Kubernetes: Building Successful Application Platforms}
@@ -270,8 +308,8 @@
       \list{language}{1}{%
         {english}%
       }
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labeltitlesource}{title}
       \field{title}{Open Network Automation Platform Documentation}
       \field{urlday}{21}
@@ -283,44 +321,6 @@
       \endverb
       \verb{url}
       \verb https://docs.onap.org/en/latest/
-      \endverb
-    \endentry
-    \entry{cadvisor_docs}{online}{}
-      \list{language}{1}{%
-        {english}%
-      }
-      \field{sortinit}{3}
-      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
-      \field{labeltitlesource}{title}
-      \field{title}{cAdvisor}
-      \field{urlday}{28}
-      \field{urlmonth}{4}
-      \field{urlyear}{2026}
-      \field{urldateera}{ce}
-      \verb{urlraw}
-      \verb https://github.com/google/cadvisor
-      \endverb
-      \verb{url}
-      \verb https://github.com/google/cadvisor
-      \endverb
-    \endentry
-    \entry{netbox_docs}{online}{}
-      \list{language}{1}{%
-        {english}%
-      }
-      \field{sortinit}{3}
-      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
-      \field{labeltitlesource}{title}
-      \field{title}{NetBox Documentation}
-      \field{urlday}{28}
-      \field{urlmonth}{4}
-      \field{urlyear}{2026}
-      \field{urldateera}{ce}
-      \verb{urlraw}
-      \verb https://netboxlabs.com/docs/netbox/en/stable/
-      \endverb
-      \verb{url}
-      \verb https://netboxlabs.com/docs/netbox/en/stable/
       \endverb
     \endentry
     \entry{infrastructure_management_platform_repo}{online}{}

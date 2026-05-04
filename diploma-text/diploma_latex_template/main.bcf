@@ -3524,32 +3524,34 @@
     <bcf:citekey order="1" intorder="1">kubernetes_controllers</bcf:citekey>
     <bcf:citekey order="2" intorder="1">kubernetes_controllers</bcf:citekey>
     <bcf:citekey order="2" intorder="2">kubernetes_objects</bcf:citekey>
-    <bcf:citekey order="3" intorder="1">kubernetes_controllers</bcf:citekey>
-    <bcf:citekey order="4" intorder="1">terraform_docs</bcf:citekey>
-    <bcf:citekey order="4" intorder="2">pulumi_iac</bcf:citekey>
-    <bcf:citekey order="5" intorder="1">c4_model</bcf:citekey>
-    <bcf:citekey order="6" intorder="1">structurizr_dsl</bcf:citekey>
-    <bcf:citekey order="7" intorder="1">kubernetes_controllers</bcf:citekey>
-    <bcf:citekey order="7" intorder="2">kubernetes_objects</bcf:citekey>
-    <bcf:citekey order="8" intorder="1">kubernetes_operator_pattern</bcf:citekey>
-    <bcf:citekey order="23" intorder="1">ansible_docs</bcf:citekey>
-    <bcf:citekey order="24" intorder="1">terraform_docs</bcf:citekey>
-    <bcf:citekey order="25" intorder="1">pulumi_iac</bcf:citekey>
-    <bcf:citekey order="26" intorder="1">kubernetes_operator_pattern</bcf:citekey>
-    <bcf:citekey order="27" intorder="1">crossplane_docs</bcf:citekey>
-    <bcf:citekey order="28" intorder="1">argocd_docs</bcf:citekey>
-    <bcf:citekey order="28" intorder="2">flux_docs</bcf:citekey>
-    <bcf:citekey order="29" intorder="1">onap_docs</bcf:citekey>
-    <bcf:citekey order="30" intorder="1">cadvisor_docs</bcf:citekey>
-    <bcf:citekey order="31" intorder="1">netbox_docs</bcf:citekey>
-    <bcf:citekey order="32" intorder="1">c4_model</bcf:citekey>
-    <bcf:citekey order="32" intorder="2">structurizr_dsl</bcf:citekey>
-    <bcf:citekey order="33" intorder="1">ansible_docs</bcf:citekey>
-    <bcf:citekey order="34" intorder="1">c4_model</bcf:citekey>
-    <bcf:citekey order="34" intorder="2">structurizr_dsl</bcf:citekey>
-    <bcf:citekey order="35" intorder="1">ansible_docs</bcf:citekey>
+    <bcf:citekey order="3" intorder="1">cadvisor_docs</bcf:citekey>
+    <bcf:citekey order="3" intorder="2">netbox_docs</bcf:citekey>
+    <bcf:citekey order="4" intorder="1">kubernetes_controllers</bcf:citekey>
+    <bcf:citekey order="5" intorder="1">terraform_docs</bcf:citekey>
+    <bcf:citekey order="5" intorder="2">pulumi_iac</bcf:citekey>
+    <bcf:citekey order="6" intorder="1">c4_model</bcf:citekey>
+    <bcf:citekey order="7" intorder="1">structurizr_dsl</bcf:citekey>
+    <bcf:citekey order="8" intorder="1">kubernetes_controllers</bcf:citekey>
+    <bcf:citekey order="8" intorder="2">kubernetes_objects</bcf:citekey>
+    <bcf:citekey order="9" intorder="1">kubernetes_operator_pattern</bcf:citekey>
+    <bcf:citekey order="24" intorder="1">ansible_docs</bcf:citekey>
+    <bcf:citekey order="25" intorder="1">terraform_docs</bcf:citekey>
+    <bcf:citekey order="26" intorder="1">pulumi_iac</bcf:citekey>
+    <bcf:citekey order="27" intorder="1">kubernetes_operator_pattern</bcf:citekey>
+    <bcf:citekey order="28" intorder="1">crossplane_docs</bcf:citekey>
+    <bcf:citekey order="29" intorder="1">argocd_docs</bcf:citekey>
+    <bcf:citekey order="29" intorder="2">flux_docs</bcf:citekey>
+    <bcf:citekey order="30" intorder="1">onap_docs</bcf:citekey>
+    <bcf:citekey order="31" intorder="1">cadvisor_docs</bcf:citekey>
+    <bcf:citekey order="32" intorder="1">netbox_docs</bcf:citekey>
+    <bcf:citekey order="33" intorder="1">c4_model</bcf:citekey>
+    <bcf:citekey order="33" intorder="2">structurizr_dsl</bcf:citekey>
+    <bcf:citekey order="34" intorder="1">ansible_docs</bcf:citekey>
+    <bcf:citekey order="35" intorder="1">c4_model</bcf:citekey>
+    <bcf:citekey order="35" intorder="2">structurizr_dsl</bcf:citekey>
     <bcf:citekey order="36" intorder="1">ansible_docs</bcf:citekey>
-    <bcf:citekey order="37" intorder="1">infrastructure_management_platform_repo</bcf:citekey>
+    <bcf:citekey order="37" intorder="1">ansible_docs</bcf:citekey>
+    <bcf:citekey order="38" intorder="1">infrastructure_management_platform_repo</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">
