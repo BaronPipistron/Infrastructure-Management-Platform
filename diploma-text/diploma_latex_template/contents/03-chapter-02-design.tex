@@ -17,7 +17,7 @@
     ParserSvc & Формировать host-centric desired state. & Для хоста сохраняются обязательные атрибуты, а для workload --- \texttt{name}, \texttt{enabled}, \texttt{deployment\_mode}, \texttt{image}, \texttt{version}, \texttt{port}. \\ \hline
     InventorySvc & Получать actual state из среды исполнения управляемых хостов. & По bootstrap-описанию \texttt{selfProvisioning} сервис обращается к cAdvisor endpoint и строит snapshot фактически наблюдаемых контейнерных workload. \\ \hline
     InventorySvc & Сохранять признаки полноты фактических данных. & В ответе отражаются \texttt{metadata.isPartial}, \texttt{failedHosts}, статус хоста и \texttt{sourceStatus} по источнику cAdvisor. \\ \hline
-    DriftDetectorSvc & Сопоставлять desired state и actual state и обнаруживать drift. & Для \texttt{node\_exporter} drift фиксируется, если workload включен в desired state, имеет режим \texttt{container}, источник cAdvisor здоров, но контейнер отсутствует в actual state. \\ \hline
+    DriftDetectorSvc & Сопоставлять desired state и actual state и обнаруживать drift. & Для \texttt{node\_exporter} drift фиксируется, если workload включен в desired state, имеет режим \texttt{container}, источник cAdvisor в состоянии healthy, но контейнер отсутствует в actual state. \\ \hline
     DriftDetectorSvc & Учитывать развернутые компоненты и характеристики среды исполнения. & Проверка опирается на имя фактически наблюдаемого контейнера, режим \texttt{container}, доступность источника cAdvisor и параметры \texttt{image}/\texttt{port}, используемые при восстановлении. \\ \hline
     ReconcilerSvc & Принимать reconcile-команды для поддерживаемых компонентов и запускать восстановление. & Для компонентов \texttt{node\_exporter} и \texttt{cadvisor} сервис ставит задачу в очередь и передает выполнение соответствующему operator-у. \\ \hline
     ReconcilerSvc & Приводить инфраструктуру к требуемому состоянию через исполнительный механизм платформы. & Operator строит execution plan, а Ansible Runner выполняет playbook, устанавливающий или запускающий требуемый Docker-контейнер. \\ \hline
@@ -168,7 +168,7 @@ Detector-слой проектируется как расширяемый regis
     \item как сформировать reconcile-команду.
 \end{enumerate}
 
-В MVP поддержаны \texttt{node\_exporter} и \texttt{cadvisor}. Для \texttt{node\_exporter} drift означает, что workload включен в desired state, имеет режим \texttt{container}, но отсутствует в actual state при здоровом источнике cAdvisor. Для \texttt{cadvisor} дополнительно предусмотрен bootstrap-сценарий: если источник cAdvisor недоступен, сервис может инициировать установку cAdvisor, поскольку сам cAdvisor является необходимым компонентом для последующего получения actual state.
+В MVP поддержаны \texttt{node\_exporter} и \texttt{cadvisor}. Для \texttt{node\_exporter} drift означает, что workload включен в desired state, имеет режим \texttt{container}, но отсутствует в actual state при healthy источнике cAdvisor. Для \texttt{cadvisor} дополнительно предусмотрен bootstrap-сценарий: если источник cAdvisor недоступен, сервис может инициировать установку cAdvisor, поскольку сам cAdvisor является необходимым компонентом для последующего получения actual state.
 
 Перед отправкой reconcile-команды применяется anti-spam/cooldown-механизм. Его задача --- предотвратить повторную отправку одинаковых команд в коротком временном окне. Ключ cooldown строится по компоненту и FQDN хоста. Если для этой пары недавно уже отправлялся reconcile, повторная команда подавляется, а факт подавления фиксируется в статистике цикла.
 
